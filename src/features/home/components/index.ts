@@ -1,0 +1,7 @@
+export { default as BestSellers } from "./BestSellers"
+export { default as CategorySection } from "./CategorySection"
+export { default as Hero } from "./Hero"
+export { default as NewArrivalsSection } from "./NewArrivalsSection"
+export { default as Newsletter } from "./Newsletter"
+export { default as ReviewSection } from "./ReviewSection"
+export { default as TheNeeyaWay } from "./TheNeeyaWay"

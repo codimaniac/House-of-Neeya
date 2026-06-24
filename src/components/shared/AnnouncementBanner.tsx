@@ -2,14 +2,11 @@
 
 import { useEffect, useState } from "react";
 
-const announcement = [
-  "New collection just dropped - shop now 🔥",
-  "Free shipping on orders over ₦50,000 🚢",
-  "Get 20% off selected items this week 🎉",
-  "Pay securely with card or bank transfer 💳",
-];
+type AnnouncementBannerProps = {
+  announcement: string[];
+}
 
-const AnnouncementBanner = () => {
+const AnnouncementBanner = ({announcement}: AnnouncementBannerProps) => {
   const [index, setIndex] = useState<number>(0);
   const [visible, setVisible] = useState<boolean>(true);
 

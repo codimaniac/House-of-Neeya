@@ -1,24 +1,33 @@
 "use client";
 
-import AnnouncementBanner from "./AnnouncementBanner";
-import Logo from "@/app/Logo-Primary-Light.png";
-import LogoDark from "@/app/Logo-Primary-Dark.png";
-import Nav from "./Nav";
+import AnnouncementBanner from "../shared/AnnouncementBanner";
+import Logo from "@/assets/Logo-Primary-Light.png";
+import LogoDark from "@/assets/Logo-Primary-Dark.png";
+import Nav from "../ui/Nav";
 import Image from "next/image";
 import {
   ShoppingCart,
   Heart,
   CircleUser,
   MenuIcon,
-  ShoppingCartIcon,
+  X
 } from "lucide-react";
 import Link from "next/link";
 import { NavToggleProvider } from "@/providers/NavToggleContext";
+import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6';
+
+const announcement = [
+  "New collection just dropped - shop now 🔥",
+  "Free shipping on orders over ₦50,000 🚢",
+  "Get 20% off selected items this week 🎉",
+  "Pay securely with card or bank transfer 💳",
+];
 
 const NavBar = () => {
+
   return (
     <>
-      <AnnouncementBanner />
+      <AnnouncementBanner announcement={announcement} />
       <NavToggleProvider>
         <header>
           <Nav>
@@ -31,30 +40,33 @@ const NavBar = () => {
               <Nav.Item href="/about">About</Nav.Item>
               <Nav.Item href="/contact">Contact</Nav.Item>
             </Nav.Menu>
-            <Nav.SideMenu>
-              <Nav.Logo href="/">
-                <Image src={LogoDark} alt="House of Neeya Logo" height={70} />
-              </Nav.Logo>
-              <Nav.Item href="/" classname="mt-auto">
+            <Nav.SideMenu classname="uppercase">
+              <div className="flex items-center justify-between w-full">
+                <Nav.Logo href="/">
+                  <Image src={LogoDark} alt="House of Neeya Logo" height={70} />
+                </Nav.Logo>
+                <Nav.CloseMenu><X size={32} /></Nav.CloseMenu>
+              </div>
+              <Nav.Item href="/" classname="mt-auto" closeMenuOnClick>
                 Home
               </Nav.Item>
-              <Nav.Item href="/shop">Shop</Nav.Item>
-              <Nav.Item href="/about">About</Nav.Item>
-              <Nav.Item href="/contact">Contact</Nav.Item>
+              <Nav.Item href="/shop" closeMenuOnClick>Shop</Nav.Item>
+              <Nav.Item href="/about" closeMenuOnClick>About</Nav.Item>
+              <Nav.Item href="/contact" closeMenuOnClick>Contact</Nav.Item>
               <Nav.SideFooter>
-                <p className="uppercase text-sm font-light">Follow us</p>
+                <p className="text-sm font-light">Follow us</p>
                 <Nav.SocialIcons>
-                  <Nav.SocialIcon>
-                    <ShoppingCartIcon size={16} />
+                  <Nav.SocialIcon href="/">
+                    <FaWhatsapp size={16} />
                   </Nav.SocialIcon>
-                  <Nav.SocialIcon>
-                    <ShoppingCartIcon size={16} />
+                  <Nav.SocialIcon href="/">
+                    <FaTiktok size={16} />
                   </Nav.SocialIcon>
-                  <Nav.SocialIcon>
-                    <ShoppingCartIcon size={16} />
+                  <Nav.SocialIcon href="/">
+                    <FaFacebook size={16} />
                   </Nav.SocialIcon>
-                  <Nav.SocialIcon>
-                    <ShoppingCartIcon size={16} />
+                  <Nav.SocialIcon href="/">
+                    <FaInstagram size={16} />
                   </Nav.SocialIcon>
                 </Nav.SocialIcons>
               </Nav.SideFooter>
@@ -66,7 +78,7 @@ const NavBar = () => {
               <Link href="/wishlist">
                 <Heart width={20} />
               </Link>
-              <Link href="/profie">
+              <Link href="/profile">
                 <CircleUser width={20} />
               </Link>
             </Nav.Actions>

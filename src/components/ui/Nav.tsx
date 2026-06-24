@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { ReactNode } from "react";
-import Overlay from "../shared/Overlay";
+import Overlay from "./Overlay";
 import { useNavToggle } from "@/providers/NavToggleContext";
 
 interface NavProps {
@@ -26,10 +26,16 @@ interface NavSideMenuProps {
   classname?: string;
 }
 
+interface NavCloseMenuProps {
+  children: ReactNode;
+  classname?: string;
+}
+
 interface NavItemProps {
   href: string;
   children: ReactNode;
   classname?: string;
+  closeMenuOnClick?: boolean;
 }
 
 interface NavActionsProps {
@@ -48,6 +54,7 @@ interface NavSocialIconsProps {
 }
 
 interface NavSocialIconProps {
+  href: string;
   children: ReactNode;
   classname?: string;
 }
@@ -77,7 +84,7 @@ function NavLogo({ href, children, classname }: NavLogoProps) {
 
 function NavMenu({ children, classname }: NavMenuProps) {
   return (
-    <ul className={`hidden md:flex items-center gap-12 text-sm ${classname}`}>
+    <ul className={`hidden md:flex items-center gap-9 text-xs lg:gap-12 lg:text-sm ${classname}`}>
       {children}
     </ul>
   );
@@ -88,12 +95,14 @@ function NavSideMenu({ children, classname }: NavSideMenuProps) {
   return (
     <>
       <Overlay
-        className={`md:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`md:hidden z-999 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
         onClick={closeNav}
       ></Overlay>
-      <div className={`fixed inset-0 w-4/5 md:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <div
+        className={`fixed inset-0 z-1000 w-4/5 md:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+      >
         <ul
-          className={`flex flex-col justify-center items-center bg-foreground text-background h-full p-12 gap-12 text-sm md:hidden ${classname}`}
+          className={`flex flex-col justify-center bg-foreground text-background h-full px-5 py-12 gap-12 text-sm md:hidden ${classname}`}
         >
           {children}
         </ul>
@@ -102,10 +111,18 @@ function NavSideMenu({ children, classname }: NavSideMenuProps) {
   );
 }
 
-function NavItem({ href, children, classname }: NavItemProps) {
+function NavCloseMenu({children}: NavCloseMenuProps) {
+  const { closeNav } = useNavToggle();
+  return <button onClick={closeNav}>{children}</button>
+}
+
+function NavItem({ href, children, classname, closeMenuOnClick }: NavItemProps) {
+  const { closeNav } = useNavToggle();
+
   return (
     <Link
       href={href}
+      onClick={closeMenuOnClick ? closeNav : undefined}
       className={`relative after:transition-all after:content-[""] after:block after:h-px after:w-0 after:bg-primary hover:after:w-full ${classname}`}
     >
       <li className="hover:text-primary">{children}</li>
@@ -137,13 +154,14 @@ function NavSocialIcons({ children, classname }: NavSocialIconsProps) {
   return <div className={`flex gap-4 ${classname}`}>{children}</div>;
 }
 
-function NavSocialIcon({ children, classname }: NavSocialIconProps) {
+function NavSocialIcon({ href, children, classname }: NavSocialIconProps) {
   return (
-    <div
+    <Link
+      href={href}
       className={`flex items-center justify-center border border-primary/30 rounded-full gap-4 p-2 ${classname}`}
     >
       {children}
-    </div>
+    </Link>
   );
 }
 
@@ -158,6 +176,7 @@ function NavSideFooter({ children, classname }: NavSideFooterProps) {
 Nav.Logo = NavLogo;
 Nav.Menu = NavMenu;
 Nav.SideMenu = NavSideMenu;
+Nav.CloseMenu = NavCloseMenu;
 Nav.Item = NavItem;
 Nav.Actions = NavActions;
 Nav.Hamburger = NavHamburger;

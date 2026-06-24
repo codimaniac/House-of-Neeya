@@ -30,9 +30,11 @@ export default function RootLayout({
       lang="en"
       className={`${cormorantGaramond.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col overflow-x-hidden">
         <NavBar />
-        {children}
+        <main>
+          {children}
+        </main>
         <FooterLayout />
       </body>
     </html>
