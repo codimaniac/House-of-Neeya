@@ -11,12 +11,12 @@ const CategorySection = () => {
   const categories: Category[] = [
     {
       name: "Women's Foottwear",
-      src: "https://res.cloudinary.com/dagamvlju/image/upload/f_auto,q_auto/IMG-20260604-WA0048_m1lp9f",
+      src: "https://res.cloudinary.com/dagamvlju/image/upload/v1782663463/women-s-day-still-life-with-makeup-jewelry_d6jbwv.jpg",
       alt: "Vintage Shirt",
     },
     {
       name: "Men's Footwear",
-      src: "https://res.cloudinary.com/dagamvlju/image/upload/f_auto,q_auto/IMG-20260604-WA0048_m1lp9f",
+      src: "https://res.cloudinary.com/dagamvlju/image/upload/v1782663463/pair-brown-leather-boots_s0jjud.jpg",
       alt: "Vintage Shirt",
     },
     {
@@ -26,7 +26,7 @@ const CategorySection = () => {
     },
     {
       name: "Handbags",
-      src: "https://res.cloudinary.com/dagamvlju/image/upload/f_auto,q_auto/IMG-20260604-WA0048_m1lp9f",
+      src: "https://res.cloudinary.com/dagamvlju/image/upload/v1782662893/black-bag-with-scarf_ojmsr2.jpg",
       alt: "Vintage Shirt",
     },
   ];

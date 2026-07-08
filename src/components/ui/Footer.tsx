@@ -78,7 +78,7 @@ interface FooterTaglineProps {
 const Footer = ({ children, className }: FooterProps) => {
   return (
     <footer
-      className={`bg-foreground text-background mt-auto pt-16 pb-8 px-5 md:px-15 lg:px-25 ${className}`}
+      className={`bg-foreground text-background mt-auto pt-16 pb-8 px-5 md:px-10 lg:px-10 ${className}`}
     >
       {children}
     </footer>

@@ -67,7 +67,7 @@ interface NavSideFooterProps {
 const Nav = ({ children, classname }: NavProps) => {
   return (
     <nav
-      className={`flex items-center justify-between px-5 md:px-15 lg:px-25 py-4 border-b border-b-[#1c1c1a1a] ${classname}`}
+      className={`flex items-center justify-between px-5 md:px-10 lg:px-15 py-4 ${classname}`}
     >
       {children}
     </nav>

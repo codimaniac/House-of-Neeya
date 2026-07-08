@@ -56,11 +56,21 @@ const FooterLayout = () => {
           <Footer.Section className="flex-col">
             <Footer.SectionTitle>Contact</Footer.SectionTitle>
             <Footer.LinkList>
-              <Footer.Link href="/shop"><Mail size={12}/> anthoniachiamaka01@gmail.com</Footer.Link>
-              <Footer.Link href="/shop"><PhoneCall size={12} /> +234 913 119 9267</Footer.Link>
-              <Footer.Link href="/shop"><MapIcon size={12} /> Abuja, Nigeria</Footer.Link>
-              <Footer.Link href="/shop"><CalendarDaysIcon size={12}/> Mon - Sat</Footer.Link>
-              <Footer.Link href="/shop"><Clock size={12}/> 8am - 8pm WAT</Footer.Link>
+              <Footer.Link href="mailto:anthoniachiamaka01@gmail.com">
+                <Mail size={12}/> anthoniachiamaka01@gmail.com
+              </Footer.Link>
+              <Footer.Link href="tel:+2349131199267">
+                <PhoneCall size={12} /> +234 913 119 9267
+              </Footer.Link>
+              <Footer.Link href="/">
+                <MapIcon size={12} /> Abuja, Nigeria
+              </Footer.Link>
+              <Footer.Link href="/">
+                <CalendarDaysIcon size={12}/> Mon - Sat
+              </Footer.Link>
+              <Footer.Link href="/">
+                <Clock size={12}/> 8am - 8pm WAT
+              </Footer.Link>
             </Footer.LinkList>
           </Footer.Section>
         </Footer.Section>

@@ -1,20 +1,15 @@
 "use client";
 
 import AnnouncementBanner from "../shared/AnnouncementBanner";
-import Logo from "@/assets/Logo-Primary-Light.png";
+// import Logo from "@/assets/Logo-Primary-Light.png";
 import LogoDark from "@/assets/Logo-Primary-Dark.png";
 import Nav from "../ui/Nav";
 import Image from "next/image";
-import {
-  ShoppingCart,
-  Heart,
-  CircleUser,
-  MenuIcon,
-  X
-} from "lucide-react";
+import { ShoppingCart, Heart, CircleUser, MenuIcon, X } from "lucide-react";
 import Link from "next/link";
 import { NavToggleProvider } from "@/providers/NavToggleContext";
-import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from 'react-icons/fa6';
+import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa6";
+import { usePathname } from "next/navigation";
 
 const announcement = [
   "New collection just dropped - shop now 🔥",
@@ -24,35 +19,44 @@ const announcement = [
 ];
 
 const NavBar = () => {
+  const pathName = usePathname()
 
   return (
     <>
       <AnnouncementBanner announcement={announcement} />
       <NavToggleProvider>
         <header>
-          <Nav>
+          <Nav classname="bg-foreground text-background">
             <Nav.Logo href="/">
-              <Image src={Logo} alt="House of Neeya Logo" height={70} />
+              <Image src={LogoDark} alt="House of Neeya Logo" height={70} />
             </Nav.Logo>
             <Nav.Menu classname="uppercase text-sm">
-              <Nav.Item href="/">Home</Nav.Item>
-              <Nav.Item href="/shop">Shop</Nav.Item>
-              <Nav.Item href="/about">About</Nav.Item>
-              <Nav.Item href="/contact">Contact</Nav.Item>
+              <Nav.Item href="/" classname={pathName === "/" ? "text-primary after:w-full" : undefined}>Home</Nav.Item>
+              <Nav.Item href="/shop" classname={pathName === "/shop" ? "text-primary after:w-full" : undefined}>Shop</Nav.Item>
+              <Nav.Item href="/about" classname={pathName === "/about" ? "text-primary after:w-full" : undefined}>About</Nav.Item>
+              <Nav.Item href="/contact" classname={pathName === "/contact" ? "text-primary after:w-full" : undefined}>Contact</Nav.Item>
             </Nav.Menu>
             <Nav.SideMenu classname="uppercase">
               <div className="flex items-center justify-between w-full">
                 <Nav.Logo href="/">
                   <Image src={LogoDark} alt="House of Neeya Logo" height={70} />
                 </Nav.Logo>
-                <Nav.CloseMenu><X size={32} /></Nav.CloseMenu>
+                <Nav.CloseMenu>
+                  <X size={32} />
+                </Nav.CloseMenu>
               </div>
               <Nav.Item href="/" classname="mt-auto" closeMenuOnClick>
                 Home
               </Nav.Item>
-              <Nav.Item href="/shop" closeMenuOnClick>Shop</Nav.Item>
-              <Nav.Item href="/about" closeMenuOnClick>About</Nav.Item>
-              <Nav.Item href="/contact" closeMenuOnClick>Contact</Nav.Item>
+              <Nav.Item href="/shop" closeMenuOnClick>
+                Shop
+              </Nav.Item>
+              <Nav.Item href="/about" closeMenuOnClick>
+                About
+              </Nav.Item>
+              <Nav.Item href="/contact" closeMenuOnClick>
+                Contact
+              </Nav.Item>
               <Nav.SideFooter>
                 <p className="text-sm font-light">Follow us</p>
                 <Nav.SocialIcons>

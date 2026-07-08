@@ -11,7 +11,7 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 
 const Button: React.FC<ButtonProps> = ({children, className, variant = "primary", size = "md", ...props}) => {
   const variants: Record<ButtonVariant, string> = {
-    primary: "bg-foreground text-background hover:bg-primary",
+    primary: "bg-foreground text-background hover:bg-primary-dark",
     secondary: "border border-foreground/30",
   }
   const sizes: Record<ButtonSize, string> = {

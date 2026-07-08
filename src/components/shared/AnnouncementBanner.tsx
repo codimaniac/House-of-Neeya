@@ -27,7 +27,7 @@ const AnnouncementBanner = ({announcement}: AnnouncementBannerProps) => {
   return (
     <aside
       aria-label="Announcement"
-      className="w-svw text-center py-2 bg-foreground text-background font-light uppercase text-[10px] tracking-widest"
+      className="w-svw text-center py-2 bg-accent text-background font-light uppercase text-[10px] tracking-widest"
     >
       <p
         className={`transition-opacity duration-300 ${visible ? "opacity-100" : "opacity-0"}`}
