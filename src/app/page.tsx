@@ -7,7 +7,7 @@ import {
   Newsletter,
   ReviewSection,
   TheNeeyaWay,
-} from "@/features/home/components";
+} from "@/sections/home";
 
 export default function Home() {
   return (

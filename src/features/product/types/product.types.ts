@@ -1,4 +1,4 @@
-export type ProductCategory = "Men's Footewear" | "Women's Footwear" | "Clothing" | "Handbags";
+export type ProductCategory = "Men's Footwear" | "Women's Footwear" | "Clothing" | "Handbags";
 
 export type ProductTags = "New" | "Featured" | "Sales" | "Best-Seller";
 
@@ -27,7 +27,7 @@ export interface Product {
     price: number;
     discountedPrice?: number;
 
-    images: ProductImage[];
+    images: ProductImage;
     variants?: ProductVariants[];
 
     rating: number;

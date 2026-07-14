@@ -45,12 +45,12 @@ const FooterLayout = () => {
           <Footer.Section className="flex-col">
             <Footer.SectionTitle>Info</Footer.SectionTitle>
             <Footer.LinkList>
-              <Footer.Link href="/shop">About Us</Footer.Link>
-              <Footer.Link href="/shop">Our Story</Footer.Link>
-              <Footer.Link href="/shop">Contact</Footer.Link>
-              <Footer.Link href="/shop">FAQ</Footer.Link>
-              <Footer.Link href="/shop">Shipping</Footer.Link>
-              <Footer.Link href="/shop">Returns</Footer.Link>
+              <Footer.Link href="/about">About Us</Footer.Link>
+              <Footer.Link href="/about">Our Story</Footer.Link>
+              <Footer.Link href="/contact">Contact</Footer.Link>
+              <Footer.Link href="/contact">FAQ</Footer.Link>
+              <Footer.Link href="/shipping">Shipping</Footer.Link>
+              <Footer.Link href="/shipping">Returns</Footer.Link>
             </Footer.LinkList>
           </Footer.Section>
           <Footer.Section className="flex-col">

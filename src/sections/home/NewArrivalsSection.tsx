@@ -2,10 +2,10 @@ import { Button } from "@/components";
 import SectionLayout from "@/components/layout/SectionLayout";
 import ProductCard from "@/features/product/components/ProductCard";
 import ProductGrid from "@/features/product/components/ProductGrid";
-import { LatestProduct } from "@/features/product/types/Product.type";
+import { LatestProduct } from "@/features/product/types/product.types";
 import { Heart } from "lucide-react";
 
-const BestSellers = () => {
+const NewArrivalsSection = () => {
   const latestProducts: LatestProduct[] = [
     {
       id: "CLT-001",
@@ -15,13 +15,11 @@ const BestSellers = () => {
       category: "Clothing",
       price: 12500,
       discountedPrice: undefined,
-      images: [
-        {
-          id: "img-001",
-          src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0005_tswqwq.jpg",
-          alt: "Vintage Shirt",
-        },
-      ],
+      images: {
+        id: "img-001",
+        src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0005_tswqwq.jpg",
+        alt: "Vintage Shirt",
+      },
       tags: ["New"],
     },
     {
@@ -32,13 +30,11 @@ const BestSellers = () => {
       category: "Clothing",
       price: 12500,
       discountedPrice: undefined,
-      images: [
-        {
-          id: "img-002",
-          src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0023_nlh91a.jpg",
-          alt: "Vintage Shirt",
-        },
-      ],
+      images: {
+        id: "img-002",
+        src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0023_nlh91a.jpg",
+        alt: "Vintage Shirt",
+      },
       tags: ["New", "Best-Seller"],
     },
     {
@@ -49,13 +45,11 @@ const BestSellers = () => {
       category: "Clothing",
       price: 12500,
       discountedPrice: undefined,
-      images: [
-        {
-          id: "img-003",
-          src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0007_ozxk5c.jpg",
-          alt: "Vintage Shirt",
-        },
-      ],
+      images: {
+        id: "img-003",
+        src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0007_ozxk5c.jpg",
+        alt: "Vintage Shirt",
+      },
       tags: ["New", "Sales"],
     },
     {
@@ -66,31 +60,26 @@ const BestSellers = () => {
       category: "Clothing",
       price: 12500,
       discountedPrice: undefined,
-      images: [
-        {
-          id: "img-004",
-          src: "https://res.cloudinary.com/dagamvlju/image/upload/f_auto,q_auto/IMG-20260604-WA0048_m1lp9f",
-          alt: "Vintage Shirt",
-        },
-      ],
+      images: {
+        id: "img-004",
+        src: "https://res.cloudinary.com/dagamvlju/image/upload/f_auto,q_auto/IMG-20260604-WA0048_m1lp9f",
+        alt: "Vintage Shirt",
+      },
       tags: ["New", "Featured"],
     },
   ];
 
   return (
-    <SectionLayout className="flex flex-col items-center bg-white">
-      <SectionLayout.Tag>Most Loved</SectionLayout.Tag>
-      <SectionLayout.Heading>Best Sellers</SectionLayout.Heading>
-      <SectionLayout.Subheading className="text-center text-foreground/40">
-        The pieces our customers keep coming back for.
-      </SectionLayout.Subheading>
+    <SectionLayout className="flex flex-col items-center">
+      <SectionLayout.Tag>Just Dropped</SectionLayout.Tag>
+      <SectionLayout.Heading>New Arrivals</SectionLayout.Heading>
       <ProductGrid>
         {latestProducts.map((latestProduct, key) => {
           return (
             <ProductCard key={key}>
               <ProductCard.Image
-                src={latestProduct.images[0].src}
-                alt={latestProduct.images[0].alt}
+                src={latestProduct.images.src}
+                alt={latestProduct.images.alt}
               />
               <ProductCard.Tags>
                 {latestProduct.tags?.map((tag, key) => {
@@ -105,7 +94,7 @@ const BestSellers = () => {
                   {latestProduct.category}
                 </ProductCard.Category>
                 <ProductCard.Name>{latestProduct.name}</ProductCard.Name>
-                <ProductCard.Price>₦12,500.00</ProductCard.Price>
+                <ProductCard.Price product={latestProduct} />
                 <ProductCard.Description>
                   {latestProduct.description}
                 </ProductCard.Description>
@@ -119,4 +108,4 @@ const BestSellers = () => {
   );
 };
 
-export default BestSellers;
+export default NewArrivalsSection;
