@@ -2,6 +2,7 @@ import { Button } from "@/components";
 import SectionLayout from "@/components/layout/SectionLayout"
 import LogoIcon from "@/assets/Logo-Icon-Light.png";
 import Image from "next/image";
+import Link from "next/link";
 
 const Hero = () => {
   const currentYear = new Date().getFullYear();
@@ -18,13 +19,13 @@ const Hero = () => {
             made for you.
           </SectionLayout.Subheading>
           <div className="flex flex-wrap gap-3">
-            <Button>Shop New Arrival</Button>
-            <Button
+            <Link href="/shop"><Button>Shop New Arrival</Button></Link>
+            <Link href="/about"><Button
               variant="secondary"
               className="transition-all ease-in hover:-translate-y-0.5"
             >
               Our Story
-            </Button>
+            </Button></Link>
           </div>
         </div>
         <div className="relative flex-1 order-1 lg:order-2">

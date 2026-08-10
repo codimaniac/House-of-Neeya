@@ -1,73 +1,19 @@
+"use client"
+
 import { Button } from "@/components";
 import SectionLayout from "@/components/layout/SectionLayout";
 import ProductCard from "@/features/product/components/ProductCard";
 import ProductGrid from "@/features/product/components/ProductGrid";
-import { LatestProduct } from "@/features/product/types/product.types";
+import { Product } from "@/features/product/types/product.types";
+import { useWishlistStore } from "@/features/wishlist/store/wishlistStore";
+import { useCartStore } from "@/features/cart/store/cartStore";
 import { Heart } from "lucide-react";
+import { products } from "@/features/product/data/products";
 
 const BestSellers = () => {
-  const latestProducts: LatestProduct[] = [
-    {
-      id: "CLT-001",
-      name: "Spilled Ink Vintage Shirt",
-      description:
-        "Ultra-lightweight cotton-rayon blend designed for ultimate comfort in warm weather",
-      category: "Clothing",
-      price: 12500,
-      discountedPrice: undefined,
-      images: {
-        id: "img-001",
-        src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0005_tswqwq.jpg",
-        alt: "Vintage Shirt",
-      },
-      tags: ["New"],
-    },
-    {
-      id: "CLT-002",
-      name: "Flowery Vintage Shirt",
-      description:
-        "Ultra-lightweight cotton-rayon blend designed for ultimate comfort in warm weather",
-      category: "Clothing",
-      price: 12500,
-      discountedPrice: undefined,
-      images: {
-        id: "img-002",
-        src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0023_nlh91a.jpg",
-        alt: "Vintage Shirt",
-      },
-      tags: ["New", "Best-Seller"],
-    },
-    {
-      id: "CLT-003",
-      name: "Hollow Man Vintage Shirt",
-      description:
-        "Ultra-lightweight cotton-rayon blend designed for ultimate comfort in warm weather",
-      category: "Clothing",
-      price: 12500,
-      discountedPrice: undefined,
-      images: {
-        id: "img-003",
-        src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0007_ozxk5c.jpg",
-        alt: "Vintage Shirt",
-      },
-      tags: ["New", "Sales"],
-    },
-    {
-      id: "CLT-004",
-      name: "Mystery Man Vintage Shirt",
-      description:
-        "Ultra-lightweight cotton-rayon blend designed for ultimate comfort in warm weather",
-      category: "Clothing",
-      price: 12500,
-      discountedPrice: undefined,
-      images: {
-        id: "img-004",
-        src: "https://res.cloudinary.com/dagamvlju/image/upload/f_auto,q_auto/IMG-20260604-WA0048_m1lp9f",
-        alt: "Vintage Shirt",
-      },
-      tags: ["New", "Featured"],
-    },
-  ];
+  const { isInWishlist, toggleWishlist } = useWishlistStore();
+  const { addToCart } = useCartStore();
+  const bestSellingProducts: Product[] = products.slice(0, 4)
 
   return (
     <SectionLayout className="flex flex-col items-center bg-white">
@@ -77,36 +23,77 @@ const BestSellers = () => {
         The pieces our customers keep coming back for.
       </SectionLayout.Subheading>
       <ProductGrid>
-        {latestProducts.map((latestProduct, key) => {
-          return (
-            <ProductCard key={key}>
-              <ProductCard.Image
-                src={latestProduct.images.src}
-                alt={latestProduct.images.alt}
-              />
-              <ProductCard.Tags>
-                {latestProduct.tags?.map((tag, key) => {
-                  return <ProductCard.Tag key={key}>{tag}</ProductCard.Tag>;
-                })}
-              </ProductCard.Tags>
-              <ProductCard.Wishlist>
-                <Heart size={16} className="fill-red-600 stroke-red-600" />
-              </ProductCard.Wishlist>
-              <ProductCard.Content>
-                <ProductCard.Category>
-                  {latestProduct.category}
-                </ProductCard.Category>
-                <ProductCard.Name>{latestProduct.name}</ProductCard.Name>
-                <ProductCard.Price product={latestProduct} />
-                <ProductCard.Description>
-                  {latestProduct.description}
-                </ProductCard.Description>
-                <Button variant="secondary">Add to Cart</Button>
-              </ProductCard.Content>
-            </ProductCard>
-          );
-        })}
-      </ProductGrid>
+              {bestSellingProducts.map((bestSellingProduct) => {
+                const inWishlist = isInWishlist(bestSellingProduct.id);
+
+                return (
+                  <ProductCard key={bestSellingProduct.id}>
+                    {(selectedOption, handleClick) => {
+                      return (
+                        <>
+                          <ProductCard.Image
+                            src={bestSellingProduct.images.src}
+                            alt={bestSellingProduct.images.alt}
+                          />
+                          <ProductCard.Tags>
+                            {bestSellingProduct.tags?.map((tag) => {
+                              return (
+                                <ProductCard.Tag key={tag}>{tag}</ProductCard.Tag>
+                              );
+                            })}
+                          </ProductCard.Tags>
+                          <ProductCard.Wishlist
+                            isActive={inWishlist}
+                            onClick={() => toggleWishlist(bestSellingProduct)}
+                          >
+                            <Heart
+                              size={16}
+                              className={
+                                inWishlist
+                                  ? "fill-red-600 stroke-red-600"
+                                  : "fill-none stroke-foreground"
+                              }
+                            />
+                          </ProductCard.Wishlist>
+                          <ProductCard.VariantSelector>
+                            <ProductCard.VariantGroup>
+                              {bestSellingProduct.variants?.map((variant, key) => {
+                                return (
+                                  variant && (
+                                    <ProductCard.VariantOption
+                                      key={key}
+                                      variant={variant}
+                                      selectedOption={selectedOption}
+                                      handleClick={() => handleClick(variant)}
+                                    />
+                                  )
+                                );
+                              })}
+                            </ProductCard.VariantGroup>
+                          </ProductCard.VariantSelector>
+                          <ProductCard.Content>
+                            <ProductCard.Category>
+                              {bestSellingProduct.category}
+                            </ProductCard.Category>
+                            <ProductCard.Name>{bestSellingProduct.name}</ProductCard.Name>
+                            <ProductCard.Price product={bestSellingProduct} />
+                            <ProductCard.Description>
+                              {bestSellingProduct.description}
+                            </ProductCard.Description>
+                            <Button
+                              variant="secondary"
+                              onClick={() => addToCart({...bestSellingProduct, color: selectedOption.color, size: selectedOption.size, quantity: 0})}
+                            >
+                              Add to Cart
+                            </Button>
+                          </ProductCard.Content>
+                        </>
+                      );
+                    }}
+                  </ProductCard>
+                );
+              })}
+            </ProductGrid>
     </SectionLayout>
   );
 };

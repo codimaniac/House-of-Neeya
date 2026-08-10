@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans } from "next/font/google";
 import "./globals.css";
 import { FooterLayout, NavBar } from "@/components";
+import Toast from "@/components/ui/Toast";
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant-garamond",
@@ -30,7 +31,8 @@ export default function RootLayout({
       lang="en"
       className={`${cormorantGaramond.variable} ${dmSans.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col overflow-x-hidden">
+      <body className="relative min-h-full flex flex-col overflow-x-hidden">
+        <Toast />
         <NavBar />
         <main>
           {children}

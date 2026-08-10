@@ -7,90 +7,92 @@ import { useNavToggle } from "@/providers/NavToggleContext";
 
 interface NavProps {
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
 interface NavLogoProps {
   href: string;
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
 interface NavMenuProps {
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
 interface NavSideMenuProps {
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
 interface NavCloseMenuProps {
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
 interface NavItemProps {
   href: string;
   children: ReactNode;
-  classname?: string;
+  className?: string;
   closeMenuOnClick?: boolean;
 }
 
 interface NavActionsProps {
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
 interface NavHamburgerProps {
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
 interface NavSocialIconsProps {
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
 interface NavSocialIconProps {
   href: string;
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
 interface NavSideFooterProps {
   children: ReactNode;
-  classname?: string;
+  className?: string;
 }
 
-const Nav = ({ children, classname }: NavProps) => {
+const Nav = ({ children, className }: NavProps) => {
   return (
     <nav
-      className={`flex items-center justify-between px-5 md:px-10 lg:px-15 py-4 ${classname}`}
+      className={`flex items-center justify-between px-5 md:px-10 lg:px-15 py-4 ${className}`}
     >
       {children}
     </nav>
   );
 };
 
-function NavLogo({ href, children, classname }: NavLogoProps) {
+function NavLogo({ href, children, className }: NavLogoProps) {
   return (
-    <Link href={href} className={`${classname}`}>
+    <Link href={href} className={`${className}`}>
       {children}
     </Link>
   );
 }
 
-function NavMenu({ children, classname }: NavMenuProps) {
+function NavMenu({ children, className }: NavMenuProps) {
   return (
-    <ul className={`hidden md:flex items-center gap-9 text-xs lg:gap-12 lg:text-sm ${classname}`}>
+    <ul
+      className={`hidden md:flex items-center gap-9 text-xs lg:gap-12 lg:text-sm ${className}`}
+    >
       {children}
     </ul>
   );
 }
 
-function NavSideMenu({ children, classname }: NavSideMenuProps) {
+function NavSideMenu({ children, className }: NavSideMenuProps) {
   const { isOpen, closeNav } = useNavToggle();
   return (
     <>
@@ -102,7 +104,7 @@ function NavSideMenu({ children, classname }: NavSideMenuProps) {
         className={`fixed inset-0 z-1000 w-4/5 md:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <ul
-          className={`flex flex-col justify-center bg-foreground text-background h-full px-5 py-12 gap-12 text-sm md:hidden ${classname}`}
+          className={`flex flex-col justify-center bg-foreground text-background h-full px-5 py-12 gap-12 text-sm md:hidden ${className}`}
         >
           {children}
         </ul>
@@ -111,38 +113,47 @@ function NavSideMenu({ children, classname }: NavSideMenuProps) {
   );
 }
 
-function NavCloseMenu({children}: NavCloseMenuProps) {
+function NavCloseMenu({ children }: NavCloseMenuProps) {
   const { closeNav } = useNavToggle();
-  return <button onClick={closeNav}>{children}</button>
+  return (
+    <button onClick={closeNav} className="cursor-pointer">
+      {children}
+    </button>
+  );
 }
 
-function NavItem({ href, children, classname, closeMenuOnClick }: NavItemProps) {
+function NavItem({
+  href,
+  children,
+  className,
+  closeMenuOnClick,
+}: NavItemProps) {
   const { closeNav } = useNavToggle();
 
   return (
     <Link
       href={href}
       onClick={closeMenuOnClick ? closeNav : undefined}
-      className={`relative after:transition-all after:content-[""] after:block after:h-px after:w-0 after:bg-primary hover:after:w-full ${classname}`}
+      className={`relative after:transition-all after:content-[""] after:block after:h-px after:w-0 after:bg-primary hover:after:w-full ${className}`}
     >
-      <li className="hover:text-primary">{children}</li>
+      <li className="hover:text-primary font-light">{children}</li>
     </Link>
   );
 }
 
-function NavActions({ children, classname }: NavActionsProps) {
+function NavActions({ children, className }: NavActionsProps) {
   return (
-    <div className={`hidden md:flex items-center gap-6 ${classname}`}>
+    <div className={`hidden md:flex items-center gap-6 font-light ${className}`}>
       {children}
     </div>
   );
 }
 
-function NavHamburger({ children, classname }: NavHamburgerProps) {
+function NavHamburger({ children, className }: NavHamburgerProps) {
   const { toggleNav } = useNavToggle();
   return (
     <div
-      className={`flex md:hidden items-center gap-6 ${classname}`}
+      className={`flex md:hidden items-center gap-6 ${className}`}
       onClick={toggleNav}
     >
       {children}
@@ -150,24 +161,24 @@ function NavHamburger({ children, classname }: NavHamburgerProps) {
   );
 }
 
-function NavSocialIcons({ children, classname }: NavSocialIconsProps) {
-  return <div className={`flex gap-4 ${classname}`}>{children}</div>;
+function NavSocialIcons({ children, className }: NavSocialIconsProps) {
+  return <div className={`flex gap-4 ${className}`}>{children}</div>;
 }
 
-function NavSocialIcon({ href, children, classname }: NavSocialIconProps) {
+function NavSocialIcon({ href, children, className }: NavSocialIconProps) {
   return (
     <Link
       href={href}
-      className={`flex items-center justify-center border border-primary/30 rounded-full gap-4 p-2 ${classname}`}
+      className={`flex items-center justify-center border border-primary/30 rounded-full gap-4 p-2 ${className}`}
     >
       {children}
     </Link>
   );
 }
 
-function NavSideFooter({ children, classname }: NavSideFooterProps) {
+function NavSideFooter({ children, className }: NavSideFooterProps) {
   return (
-    <div className={`flex flex-col self-baseline mt-auto gap-6 ${classname}`}>
+    <div className={`flex flex-col self-baseline mt-auto gap-6 ${className}`}>
       {children}
     </div>
   );

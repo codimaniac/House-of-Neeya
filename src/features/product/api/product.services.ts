@@ -7,6 +7,8 @@ const delay = async (ms: number) => {
 export async function getProducts() {
     await delay(5000)
 
+    console.log(products)
+
     return products;
 }
 

@@ -141,14 +141,14 @@ export const products: Product[] = Array.from({length: 12}, (_, index) => {
         variants: [
             {
                 id: crypto.randomUUID(),
-                color: colors[index % colors.length],
-                sizes: sizes[index % sizes.length],
+                color: colors[Math.floor(Math.random() * 10) % colors.length],
+                size: sizes[Math.floor(Math.random() * 11) % sizes.length],
                 stock: Math.floor(Math.random() * 20) + 5
             },
             {
                 id: crypto.randomUUID(),
-                color: colors[index % colors.length],
-                sizes: sizes[index % sizes.length],
+                color: colors[Math.floor(Math.random() * 10) % colors.length],
+                size: sizes[Math.floor(Math.random() * 11) % sizes.length],
                 stock: Math.floor(Math.random() * 20) + 5
             }
         ],
