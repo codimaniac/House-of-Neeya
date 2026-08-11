@@ -104,7 +104,7 @@ function NavSideMenu({ children, className }: NavSideMenuProps) {
         className={`fixed inset-0 z-1000 w-4/5 md:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
       >
         <ul
-          className={`flex flex-col justify-center bg-foreground text-background h-full px-5 py-12 gap-12 text-sm md:hidden ${className}`}
+          className={`flex flex-col justify-center bg-foreground text-background h-dvh px-5 py-12 gap-12 text-sm md:hidden ${className}`}
         >
           {children}
         </ul>
