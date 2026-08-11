@@ -3,8 +3,8 @@ import { CartProduct } from "../types/cart.types";
 
 interface ProductToCartMapperProps {
     product: Product;
-    color?: string;
-    size?: string;
+    color: string;
+    size: string;
     quantity: number;
 }
 
