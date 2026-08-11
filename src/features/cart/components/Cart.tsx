@@ -8,8 +8,8 @@ import {Button} from "@/components"
 import formatCurrency from "@/lib/formatCurrency";
 
 const Cart = () => {
-  const { items, getTotal } = useCartStore();
-  const totalPrice = getTotal()
+  const { items, getSubtotal, getTotal } = useCartStore();
+  const totalPrice = getTotal();
 
   return (
     <>
@@ -28,6 +28,7 @@ const Cart = () => {
         <>
           <CartItems>
             {items.map((item, index) => {
+              const itemTotal = getSubtotal(item.id, item.color, item.size);
               return (
                 <CartItem key={index}>
                   <CartItem.Image src={item.images.src} alt={item.images.alt} />
@@ -39,13 +40,7 @@ const Cart = () => {
                     </CartItem.ColGroup>
                     <CartItem.ColGroup>
                       <CartItem.Delete id={item.id} color={item.color} size={item.size} />
-                      <CartItem.Price
-                        price={
-                          item.discountedPrice
-                            ? item.discountedPrice*item.quantity
-                            : item.price*item.quantity
-                        }
-                      />
+                      <CartItem.Price price={itemTotal} />
                     </CartItem.ColGroup>
                   </CartItem.Content>
                 </CartItem>

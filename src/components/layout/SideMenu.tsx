@@ -1,6 +1,9 @@
 import { ReactNode } from "react";
 import Overlay from "../ui/Overlay";
-import { type SideMenu, useSideMenuToggle } from "@/providers/SideMenuToggleContext";
+import {
+  type SideMenu,
+  useSideMenuToggle,
+} from "@/providers/SideMenuToggleContext";
 import { useCartStore } from "@/features/cart/store/cartStore";
 import { useWishlistStore } from "@/features/wishlist/store/wishlistStore";
 
@@ -10,7 +13,7 @@ interface SideMenuProps {
 }
 
 interface OpenSideMenuProps {
-  children: ReactNode; 
+  children: ReactNode;
   menu: Exclude<SideMenu, null>;
 }
 
@@ -21,37 +24,39 @@ interface CloseSideMenuProps {
 type SideMenuComponent = React.FC<SideMenuProps> & {
   OpenSideMenu: typeof OpenSideMenu;
   CloseSideMenu: typeof CloseSideMenu;
-}
+};
 
 const SideMenu = (({ children, className }: SideMenuProps) => {
-  const { activeMenu, closeSideMenu } = useSideMenuToggle();
+  const { activeMenu, isOpen, closeSideMenu } = useSideMenuToggle();
   return (
     <>
       <Overlay
-        className={`z-999 ${activeMenu ? "block" : "hidden"}`}
+        className={`z-999 ${isOpen ? "block" : "hidden"}`}
         onClick={closeSideMenu}
       ></Overlay>
       <div
-        className={`fixed inset-y-0 z-1000 md:w-2/5 transition-all duration-300 ${activeMenu ? "right-0" : "-right-full"} ${className}`}
+        className={`fixed inset-y-0 z-1000 md:w-2/5 transition-all duration-300 ${isOpen ? "right-0" : "right-[-200%]"} ${className}`}
       >
-        <ul
+        <div
           className={`flex flex-col bg-background text-foreground h-full gap-4 text-sm ${className}`}
         >
           {children(activeMenu)}
-        </ul>
+        </div>
       </div>
     </>
   );
-}) as SideMenuComponent 
+}) as SideMenuComponent;
 
-function OpenSideMenu({children, menu}: OpenSideMenuProps) {
+function OpenSideMenu({ children, menu }: OpenSideMenuProps) {
   const { items: cartItems } = useCartStore();
   const { items: wishlistItems } = useWishlistStore();
-  const { activeMenu, openSideMenu } = useSideMenuToggle();
+  const { openSideMenu } = useSideMenuToggle();
   return (
     <div className="relative cursor-pointer" onClick={() => openSideMenu(menu)}>
       {children}
-      <div className="flex justify-center items-center absolute -top-1/4 -right-3/4 w-3 h-3 p-2 rounded-full bg-background text-foreground text-xs">{cartItems.length}</div>
+      <div className="flex justify-center items-center absolute -top-1/4 -right-3/4 w-3 h-3 p-2 rounded-full bg-background text-foreground text-xs">
+        {menu === "cart" ? cartItems.length : wishlistItems.length}
+      </div>
     </div>
   );
 }

@@ -20,9 +20,12 @@ const SideMenuContext = createContext<SideMenuContextType>({
 
 export const SideMenuProvider = ({ children }: { children: ReactNode }) => {
   const [activeMenu, setActiveMenu] = useState<SideMenu>(null);
-  const openSideMenu = (menu: Exclude<SideMenu, null>) => setActiveMenu(menu);
-  const closeSideMenu = () => setActiveMenu(null);
-  const isOpen = activeMenu !== null
+  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const openSideMenu = (menu: Exclude<SideMenu, null>) => {
+    setActiveMenu(menu)
+    setIsOpen(true)
+  };
+  const closeSideMenu = () => setIsOpen(false);
 
   return (
     <SideMenuContext.Provider value={{ activeMenu, openSideMenu, closeSideMenu, isOpen }}>

@@ -56,12 +56,12 @@ export const useCartStore = create<CartState>((set, get) => ({
     },
 
     getTotal: () => {
-        return get().items.reduce((total, item) => total + item.quantity * item.price, 0)        
+        return get().items.reduce((total, item) => item.discountedPrice ? total + item.quantity * item.discountedPrice : total + item.quantity * item.price, 0)        
     },
 
     getSubtotal: (id, color, size) => {
         const item = get().items.find((item) => item.id === id && item.color === color && item.size === size)
 
-        return item ? item.quantity * item.price : 0
+        return item && item.discountedPrice ? item.quantity * item.discountedPrice : item.quantity * item.price
     },
 }))
