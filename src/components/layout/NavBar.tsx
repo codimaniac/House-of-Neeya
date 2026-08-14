@@ -2,7 +2,7 @@
 
 import AnnouncementBanner from "../shared/AnnouncementBanner";
 // import Logo from "@/assets/Logo-Primary-Light.png";
-import LogoDark from "@/assets/Logo-Primary-Dark.png";
+import LogoLight from "@/assets/Logo-Primary-Light.png";
 import Nav from "../ui/Nav";
 import Image from "next/image";
 import {
@@ -32,14 +32,17 @@ const NavBar = () => {
   const pathName = usePathname();
 
   return (
-    <>
+    <div className="sticky top-0 inset-x-0 z-1000">
       <AnnouncementBanner announcement={announcement} />
       <NavToggleProvider>
         <SideMenuProvider>
           <header>
-            <Nav className="bg-foreground text-background">
+            <Nav className="bg-background text-foreground">
+              <Nav.Hamburger className="mr-12">
+                <MenuIcon width={18} strokeWidth={1.5} />
+              </Nav.Hamburger>
               <Nav.Logo href="/">
-                <Image src={LogoDark} alt="House of Neeya Logo" height={70} />
+                <Image src={LogoLight} alt="House of Neeya Logo" height={50} />
               </Nav.Logo>
               <Nav.Menu className="uppercase text-sm">
                 <Nav.Item
@@ -85,7 +88,7 @@ const NavBar = () => {
                 <div className="flex items-center justify-between w-full">
                   <Nav.Logo href="/">
                     <Image
-                      src={LogoDark}
+                      src={LogoLight}
                       alt="House of Neeya Logo"
                       height={70}
                     />
@@ -140,14 +143,11 @@ const NavBar = () => {
                   (activeMenu) => (activeMenu === "cart" ? <Cart /> : <Wishlist />)
                 }
               </SideMenu>
-              <Nav.Hamburger>
-                <MenuIcon width={18} strokeWidth={1.5} />
-              </Nav.Hamburger>
             </Nav>
           </header>
         </SideMenuProvider>
       </NavToggleProvider>
-    </>
+    </div>
   );
 };
 

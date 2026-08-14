@@ -67,7 +67,7 @@ interface NavSideFooterProps {
 const Nav = ({ children, className }: NavProps) => {
   return (
     <nav
-      className={`flex items-center justify-between px-5 md:px-10 lg:px-15 py-4 ${className}`}
+      className={`flex items-center md:justify-between px-5 md:px-10 lg:px-15 py-4 shadow-xs shadow-foreground/10 ${className}`}
     >
       {children}
     </nav>
@@ -97,11 +97,11 @@ function NavSideMenu({ children, className }: NavSideMenuProps) {
   return (
     <>
       <Overlay
-        className={`md:hidden z-999 ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`z-999 ${isOpen ? "block" : "hidden"}`}
         onClick={closeNav}
       ></Overlay>
       <div
-        className={`fixed inset-0 z-1000 w-4/5 md:hidden ${isOpen ? "translate-x-0" : "-translate-x-full"}`}
+        className={`fixed inset-0 z-1000 w-4/5 md:hidden transition-all duration-300 ${isOpen ? "left-0" : "-left-full"}`}
       >
         <ul
           className={`flex flex-col justify-center bg-foreground text-background h-dvh px-5 py-12 gap-12 text-sm md:hidden ${className}`}
@@ -143,7 +143,7 @@ function NavItem({
 
 function NavActions({ children, className }: NavActionsProps) {
   return (
-    <div className={`hidden md:flex items-center gap-6 font-light ${className}`}>
+    <div className={`flex items-center gap-6 not-md:ml-auto font-light ${className}`}>
       {children}
     </div>
   );

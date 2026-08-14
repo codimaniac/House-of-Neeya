@@ -38,7 +38,7 @@ const SideMenu = (({ children, className }: SideMenuProps) => {
         className={`fixed inset-y-0 z-1000 md:w-2/5 transition-all duration-300 ${isOpen ? "right-0" : "right-[-200%]"} ${className}`}
       >
         <div
-          className={`flex flex-col bg-background text-foreground h-full gap-4 text-sm ${className}`}
+          className={`flex flex-col bg-background text-foreground h-dvh gap-4 text-sm ${className}`}
         >
           {children(activeMenu)}
         </div>

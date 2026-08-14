@@ -23,7 +23,7 @@ const Select: React.FC<SelectProps> = ({children, className, label, id, error, v
   }
 
   return (
-    <div className="flex-1">
+    <div className="flex-1 max-w-60">
         {
             label && <label htmlFor={id} className={cn("text-[11px] tracking-widest uppercase text-foreground block mb-1.5", error && "text-red-600")}>
                 {label}

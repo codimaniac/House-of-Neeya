@@ -9,11 +9,26 @@ import { getProducts } from "@/features/product/api/product.services";
 import ProductCard from "@/features/product/components/ProductCard";
 import ProductCardLoader from "@/features/product/components/ProductCardLoader";
 import ProductGrid from "@/features/product/components/ProductGrid";
+import ProductFilter from "@/features/product/components/ProductFilter";
 import { Product } from "@/features/product/types/product.types";
-import { Heart } from "lucide-react";
+import { FilterIcon, FilterXIcon, Heart } from "lucide-react";
 import { useEffect, useState } from "react";
+import Select from "@/components/ui/SelectInput";
+import {
+  FilterToggleProvider,
+  useFilterToggle,
+} from "@/features/product/provider/filterMenuToggleContext";
 
 export default function Home() {
+  return (
+    <FilterToggleProvider>
+      <Shop />
+    </FilterToggleProvider>
+  );
+}
+
+function Shop() {
+  const { isOpen, toggleFilter } = useFilterToggle();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const { addToCart } = useCartStore();
@@ -36,24 +51,95 @@ export default function Home() {
     <>
       <SectionLayout className="relative text-center bg-foreground overflow-hidden after:content-[''] after:absolute after:-bottom-px after:inset-x-0 after:h-10 after:bg-background after:[clip-path:ellipse(55%_100%_at_50%_100%)]">
         <div className="flex flex-col items-center justify-center">
-          <SectionLayout.Tag className="mb-0">The Collection</SectionLayout.Tag>
+          <SectionLayout.Tag className="mb-0">Collection</SectionLayout.Tag>
           <SectionLayout.Heading className="text-background italic text-[clamp(36px,6vw,68px)]">
-            Shop
+            The Shop
           </SectionLayout.Heading>
           <SectionLayout.Subheading className="text-background my-0">
             Curated by Neeya . {products.length} Pieces
           </SectionLayout.Subheading>
         </div>
       </SectionLayout>
-      <SectionLayout>
+      <SectionLayout className="flex flex-col md:flex-row gap-8">
+        {isOpen && <ProductFilter isOpen={isOpen} />}
         {loading ? (
-          <ProductGrid>
-            {[...Array(12)].map((_, index) => {
-              return <ProductCardLoader key={index} />;
-            })}
-          </ProductGrid>
-        ) : (
           <>
+            <div className="flex flex-col md:flex-row w-full md:items-center md:justify-between gap-4 my-4 py-2 text-xs text-foreground/60">
+              <div className="flex items-center gap-4">
+                {isOpen ? (
+                  <FilterXIcon
+                    width={18}
+                    strokeWidth={1.5}
+                    className="cursor-pointer hover:text-foreground"
+                    onClick={toggleFilter}
+                  />
+                ) : (
+                  <FilterIcon
+                    width={18}
+                    strokeWidth={1.5}
+                    className="cursor-pointer hover:text-foreground"
+                    onClick={toggleFilter}
+                  />
+                )}{" "}
+                Showing {products.length} products
+              </div>
+              <Select className="text-xs">
+                <option value="featured" className="text-xs w-12">
+                  Sort by: Featured
+                </option>
+                <option value="featured" className="text-xs w-12">
+                  Sort by: Price (Low to High)
+                </option>
+                <option value="featured" className="text-xs w-12">
+                  Sort by: Price (High to Low)
+                </option>
+                <option value="featured" className="text-xs w-12">
+                  Sort by: Name (A- Z)
+                </option>
+              </Select>
+            </div>
+            <ProductGrid>
+              {[...Array(12)].map((_, index) => {
+                return <ProductCardLoader key={index} />;
+              })}
+            </ProductGrid>
+          </>
+        ) : (
+          <div className="flex flex-col w-full @container">
+            <div className="flex flex-col md:flex-row w-full md:items-center md:justify-between gap-4 my-4 py-2 text-xs text-foreground/60">
+              <div className="flex items-center gap-4">
+                {isOpen ? (
+                  <FilterXIcon
+                    width={18}
+                    strokeWidth={1.5}
+                    className="cursor-pointer hover:text-foreground"
+                    onClick={toggleFilter}
+                  />
+                ) : (
+                  <FilterIcon
+                    width={18}
+                    strokeWidth={1.5}
+                    className="cursor-pointer hover:text-foreground"
+                    onClick={toggleFilter}
+                  />
+                )}{" "}
+                Showing {products.length} products
+              </div>
+              <Select className="text-xs">
+                <option value="featured" className="text-xs w-12">
+                  Sort by: Featured
+                </option>
+                <option value="featured" className="text-xs w-12">
+                  Sort by: Price (Low to High)
+                </option>
+                <option value="featured" className="text-xs w-12">
+                  Sort by: Price (High to Low)
+                </option>
+                <option value="featured" className="text-xs w-12">
+                  Sort by: Name (A- Z)
+                </option>
+              </Select>
+            </div>
             <ProductGrid>
               {products.map((product) => {
                 const inWishlist = isInWishlist(product.id);
@@ -70,7 +156,9 @@ export default function Home() {
                           <ProductCard.Tags>
                             {product.tags?.map((tag) => {
                               return (
-                                <ProductCard.Tag key={tag}>{tag}</ProductCard.Tag>
+                                <ProductCard.Tag key={tag}>
+                                  {tag}
+                                </ProductCard.Tag>
                               );
                             })}
                           </ProductCard.Tags>
@@ -114,7 +202,14 @@ export default function Home() {
                             </ProductCard.Description>
                             <Button
                               variant="secondary"
-                              onClick={() => addToCart({...product, color: selectedOption.color, size: selectedOption.size, quantity: 0})}
+                              onClick={() =>
+                                addToCart({
+                                  ...product,
+                                  color: selectedOption.color,
+                                  size: selectedOption.size,
+                                  quantity: 0,
+                                })
+                              }
                             >
                               Add to Cart
                             </Button>
@@ -135,7 +230,7 @@ export default function Home() {
               currentPage={1}
               totalPages={4}
             />
-          </>
+          </div>
         )}
       </SectionLayout>
     </>

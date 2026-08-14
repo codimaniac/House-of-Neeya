@@ -12,16 +12,16 @@ interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
 const Button: React.FC<ButtonProps> = ({children, className, variant = "primary", size = "md", ...props}) => {
   const variants: Record<ButtonVariant, string> = {
     primary: "bg-foreground text-background hover:bg-primary-dark",
-    secondary: "border border-foreground/30",
+    secondary: "border border-foreground/30 hover:bg-foreground hover:text-background",
   }
   const sizes: Record<ButtonSize, string> = {
-    sm: "py-2 px-4.5 text-[9px]",
-    md: "py-3.5 px-8 text-[11px]",
-    lg: "py-5 px-11.5 text-[14px]",
+    sm: "py-2 px-4",
+    md: "py-3 px-6",
+    lg: "py-5 px-10",
   }
 
   return (
-    <button className={cn("inline-flex justify-center items-center gap-2 font-sans tracking-[0.2em] uppercase rounded-xs cursor-pointer", variants[variant], sizes[size], className)} {...props}>{children}</button>
+    <button className={cn("inline-flex justify-center items-center gap-2 font-sans tracking-[0.2em] uppercase rounded-xs cursor-pointer text-[9px] md:text-[11px] lg:text-[14px]", variants[variant], sizes[size], className)} {...props}>{children}</button>
   )
 }
 
