@@ -49,21 +49,18 @@ function Shop() {
 
   return (
     <>
-      <SectionLayout className="relative text-center bg-foreground overflow-hidden after:content-[''] after:absolute after:-bottom-px after:inset-x-0 after:h-10 after:bg-background after:[clip-path:ellipse(55%_100%_at_50%_100%)]">
+      <SectionLayout className="relative text-center overflow-hidden !py-8">
         <div className="flex flex-col items-center justify-center">
           <SectionLayout.Tag className="mb-0">Collection</SectionLayout.Tag>
-          <SectionLayout.Heading className="text-background italic text-[clamp(36px,6vw,68px)]">
+          <SectionLayout.Heading className="italic text-[clamp(36px,6vw,68px)]">
             The Shop
           </SectionLayout.Heading>
-          <SectionLayout.Subheading className="text-background my-0">
-            Curated by Neeya . {products.length} Pieces
-          </SectionLayout.Subheading>
         </div>
       </SectionLayout>
       <SectionLayout className="flex flex-col md:flex-row gap-8">
         {isOpen && <ProductFilter isOpen={isOpen} />}
         {loading ? (
-          <>
+          <div className="flex flex-col w-full @container">
             <div className="flex flex-col md:flex-row w-full md:items-center md:justify-between gap-4 my-4 py-2 text-xs text-foreground/60">
               <div className="flex items-center gap-4">
                 {isOpen ? (
@@ -103,7 +100,7 @@ function Shop() {
                 return <ProductCardLoader key={index} />;
               })}
             </ProductGrid>
-          </>
+          </div>
         ) : (
           <div className="flex flex-col w-full @container">
             <div className="flex flex-col md:flex-row w-full md:items-center md:justify-between gap-4 my-4 py-2 text-xs text-foreground/60">

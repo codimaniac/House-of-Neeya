@@ -16,7 +16,7 @@ const BestSellers = () => {
   const bestSellingProducts: Product[] = products.slice(0, 4)
 
   return (
-    <SectionLayout className="flex flex-col items-center bg-white">
+    <SectionLayout className="flex flex-col items-center bg-white @container">
       <SectionLayout.Tag>Most Loved</SectionLayout.Tag>
       <SectionLayout.Heading>Best Sellers</SectionLayout.Heading>
       <SectionLayout.Subheading className="text-center text-foreground/40">

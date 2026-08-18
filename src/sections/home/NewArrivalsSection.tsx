@@ -16,7 +16,7 @@ const NewArrivalsSection = () => {
   const latestProducts: Product[] = products.slice(0, 4);
 
   return (
-    <SectionLayout className="flex flex-col items-center">
+    <SectionLayout className="flex flex-col items-center @container">
       <SectionLayout.Tag>Just Dropped</SectionLayout.Tag>
       <SectionLayout.Heading>New Arrivals</SectionLayout.Heading>
       <ProductGrid>

@@ -4,9 +4,9 @@ import { CartProduct } from "@/features/cart/types/cart.types";
 type CartState = {
     items: CartProduct[];
 
-    addToCart: (item: CartProduct, quantity?: number) => void;
-    removeFromCart: (id: string) => void;
-    clearCart: () => void;
+    addProduct: (item: CartProduct, quantity?: number) => void;
+    deleteProduct: (id: string) => void;
+    clearProducts: () => void;
     increaseQuantity: (id: string) => void;
     decreaseQuantity: (id: string) => void;
 
@@ -17,7 +17,7 @@ type CartState = {
 export const useCartStore = create<CartState>((set, get) => ({
     items: [],
 
-    addToCart: (item, quantity = 1) => {
+    addProduct: (item, quantity = 1) => {
         const existing = get().items.find((i) => i.id === item.id)
 
         if (existing) {
@@ -27,11 +27,11 @@ export const useCartStore = create<CartState>((set, get) => ({
         }
     },
 
-    removeFromCart: (id) => {
+    deleteProduct: (id) => {
         set({ items: [...get().items.filter(item => item.id!==id)] })
     },
 
-    clearCart: () => {
+    clearProducts: () => {
         set({ items: [] })
     },
 
