@@ -150,7 +150,7 @@ function ProductVariantSelector({
 }: ProductVariantSelectorProps) {
   return (
     <div
-      className={`absolute z-1 bottom-42 m-2 md:m-3 lg:m-4 flex flex-col gap-2 text-[8px] transition-all duration-500 opacity-0 group-hover:bottom-52 group-hover:opacity-100 ${className}`}
+      className={`absolute z-1 bottom-42 m-2 md:m-3 lg:m-4 flex flex-col gap-2 text-[8px] transition-all duration-500 md:opacity-0 md:group-hover:bottom-52 md:group-hover:opacity-100 ${className}`}
     >
       {children}
     </div>
@@ -163,7 +163,7 @@ function ProductVariantGroup({
 }: ProductVariantGroupProps) {
   return (
     <div
-      className={`flex gap-2 text-[8px] ${className}`}
+      className={`flex gap-2 text-[6px] md:text-[8px] flex-wrap ${className}`}
     >
       {children}
     </div>

@@ -49,7 +49,7 @@ function Shop() {
 
   return (
     <>
-      <SectionLayout className="relative text-center overflow-hidden !py-8">
+      <SectionLayout className="relative text-center overflow-hidden py-8!">
         <div className="flex flex-col items-center justify-center">
           <SectionLayout.Tag className="mb-0">Collection</SectionLayout.Tag>
           <SectionLayout.Heading className="italic text-[clamp(36px,6vw,68px)]">

@@ -6,10 +6,18 @@ import { useCartStore } from "../store/cartStore";
 import CartItem from "./CartItem";
 import {Button} from "@/components"
 import formatCurrency from "@/lib/formatCurrency";
+import { useRouter } from "next/navigation";
+import { useSideMenuToggle } from "@/providers/SideMenuToggleContext";
 
 const Cart = () => {
   const { items, getSubtotal, getTotal } = useCartStore();
   const totalPrice = getTotal();
+  const { closeSideMenu } = useSideMenuToggle();
+  const router = useRouter();
+  const handleCheckout = () => {
+    closeSideMenu();
+    router.push("/checkout");
+  }
 
   return (
     <>
@@ -63,7 +71,7 @@ const Cart = () => {
               <span>Items Total</span>
               <span>{formatCurrency(totalPrice)}</span>
             </div>
-            <Button className="w-full mt-2">Proceed to Checkout</Button>
+            <Button className="w-full mt-2" onClick={handleCheckout}>Proceed to Checkout</Button>
           </div>
         </>
       )}
