@@ -51,13 +51,13 @@ function Shop() {
     <>
       <SectionLayout className="relative text-center overflow-hidden py-8!">
         <div className="flex flex-col items-center justify-center">
-          <SectionLayout.Tag className="mb-0">Collection</SectionLayout.Tag>
+          <SectionLayout.Tag className="mb-6 text-xs">The Collection</SectionLayout.Tag>
           <SectionLayout.Heading className="italic text-[clamp(36px,6vw,68px)]">
-            The Shop
+            Shop All Wears
           </SectionLayout.Heading>
         </div>
       </SectionLayout>
-      <SectionLayout className="flex flex-col md:flex-row gap-8">
+      <SectionLayout className="flex flex-col md:flex-row gap-8 py-0!">
         {isOpen && <ProductFilter isOpen={isOpen} />}
         {loading ? (
           <div className="flex flex-col w-full @container">
