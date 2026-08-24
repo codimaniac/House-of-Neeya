@@ -27,7 +27,7 @@ const DeliveryFee = ({fee}: {fee: number}) => {
   return (
     <div className="flex justify-between text-sm text-foreground/60">
       <p>Delivery <span className="text-xs">(once per order)</span></p>
-      <p>{fee ? formatCurrency(fee) : "Select state"}</p>
+      <p>{fee !== 0 ? formatCurrency(fee) : "Select state"}</p>
     </div>
   )
 }
