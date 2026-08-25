@@ -4,7 +4,7 @@ export default function Home() {
   return (
     <>
       <SectionLayout>
-        <p>Hero</p>
+        <p>Auth</p>
       </SectionLayout>
     </>
   );

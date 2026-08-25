@@ -1,8 +1,12 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, DM_Sans } from "next/font/google";
+import { Cormorant_Garamond, DM_Sans, Noto_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import { FooterLayout, NavBar } from "@/components";
 import Toast from "@/components/ui/Toast";
+import { cn } from "@/lib/utils";
+
+const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
+
+const notoSans = Noto_Sans({subsets:['latin'],variable:'--font-sans'});
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant-garamond",
@@ -29,15 +33,11 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${cormorantGaramond.variable} ${dmSans.variable} h-full antialiased`}
+      className={cn("h-full", "antialiased", cormorantGaramond.variable, dmSans.variable, "font-sans", notoSans.variable, playfairDisplayHeading.variable)}
     >
       <body className="relative min-h-full flex flex-col overflow-x-hidden">
         <Toast />
-        <NavBar />
-        <main>
-          {children}
-        </main>
-        <FooterLayout />
+        {children}
       </body>
     </html>
   );
