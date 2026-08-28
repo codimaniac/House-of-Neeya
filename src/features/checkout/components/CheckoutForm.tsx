@@ -19,7 +19,7 @@ const PaymentMethod = ({
 }) => {
   return (
     <div className="flex flex-col gap-4 items-center border border-foreground/20 p-4 bg-white">
-      <p className={`flex items-center gap-2 text-lg capitalize ${brandStyle}`}>
+      <p className={`flex flex-col items-center gap-2 text-lg capitalize ${brandStyle}`}>
         {children}
       </p>
       <p className="text-xs text-foreground/60">{paymentOptions}</p>
@@ -116,15 +116,17 @@ const CheckoutForm = ({
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <PaymentMethod
           paymentOptions="Cards, Bank Transfer, USSD"
-          brandStyle="text-[#F5A623]"
+          brandStyle="text-forground"
         >
-          <FaFlutter /> Flutterwave
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1C1916" stroke-width="1.6"><path d="M4 12l6-8h10l-6 8h6l-12 12 2-8H4z"></path></svg>
+          Flutterwave
         </PaymentMethod>
         <PaymentMethod
           paymentOptions="Cards, Bank Transfer, QR"
-          brandStyle="text-[#0BA4DB]"
+          brandStyle="text-foreground"
         >
-          <FaPaypal /> Paypal
+          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#1C1916" stroke-width="1.6"><path d="M6 4h9a4 4 0 010 8H9l-1 8H5L7 4z"></path><path d="M9 12h8a4 4 0 010 8h-6"></path></svg>
+          Paypal
         </PaymentMethod>
       </div>
       <p className="text-[10px] md:text-xs text-foreground/60">

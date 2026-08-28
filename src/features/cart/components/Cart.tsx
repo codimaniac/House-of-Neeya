@@ -21,7 +21,7 @@ const Cart = () => {
 
   return (
     <>
-      <div className="flex items-center justify-between w-full text-foreground bg-background border-b border-foreground/20 px-5 py-7.5">
+      <div className="flex items-center justify-between w-full text-foreground border-b border-foreground/20 px-5 py-7.5">
         <div className="flex items-baseline gap-3">
           <div className="font-serif text-3xl italic text-accent">Your</div>
           <div className="text-2xl font-light tracking-wide">Shopping Bag</div>

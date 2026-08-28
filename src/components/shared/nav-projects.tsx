@@ -21,12 +21,12 @@ export function NavProjects({
 }) {
   const pathName = usePathname();
   return (
-    <SidebarGroup className="group-data-[collapsible=icon]:hidden">
-      <SidebarGroupLabel>Navigations</SidebarGroupLabel>
+    <SidebarGroup>
+      <SidebarGroupLabel className="text-foreground/40">Navigations</SidebarGroupLabel>
       <SidebarMenu className="gap-1">
         {projects.map((item) => (
           <SidebarMenuItem key={item.name}>
-            <SidebarMenuButton isActive={pathName === item.url} render={<Link href={item.url} className="py-6" />}>
+            <SidebarMenuButton isActive={pathName === item.url} tooltip={item.name} render={<Link href={item.url} className="py-6" />}>
               {item.icon}
               <span>{item.name}</span>
             </SidebarMenuButton>

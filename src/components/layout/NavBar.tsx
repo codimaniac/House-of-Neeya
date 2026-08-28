@@ -11,8 +11,16 @@ import {
   MenuIcon,
   X,
   ShoppingCart,
+  SparklesIcon,
+  BadgeCheckIcon,
+  CreditCardIcon,
+  BellIcon,
+  LogOutIcon,
+  House,
+  ShoppingBag,
+  Info,
+  Mail,
 } from "lucide-react";
-import Link from "next/link";
 import { NavToggleProvider } from "@/providers/NavToggleContext";
 import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa6";
 import { usePathname } from "next/navigation";
@@ -20,6 +28,8 @@ import SideMenu from "./SideMenu";
 import { SideMenuProvider } from "@/providers/SideMenuToggleContext";
 import Cart from "@/features/cart/components/Cart";
 import Wishlist from "@/features/wishlist/components/Wishlist";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const announcement = [
   "New collection just dropped - shop now 🔥",
@@ -28,11 +38,25 @@ const announcement = [
   "Pay securely with card or bank transfer 💳",
 ];
 
+const data = {
+  user: {
+    name: "Jane Mathews",
+    email: "janematthew@hotmail.com",
+    avatar: "/avatars/shadcn.jpg",    
+  }
+}
+
 const NavBar = () => {
   const pathName = usePathname();
+  const initials = data.user.name
+    .split(" ")
+    .filter(Boolean)
+    .slice(0, 2)
+    .map((part) => part[0]?.toUpperCase() ?? "")
+    .join("") || "A"
 
   return (
-    <div className="sticky top-0 inset-x-0 z-1000">
+    <div className="sticky top-0 inset-x-0 z-10">
       <AnnouncementBanner announcement={announcement} />
       <NavToggleProvider>
         <SideMenuProvider>
@@ -84,32 +108,38 @@ const NavBar = () => {
                   Contact
                 </Nav.Item>
               </Nav.Menu>
-              <Nav.SideMenu className="uppercase">
-                <div className="flex items-center justify-between w-full">
+              <Nav.SideMenu>
+                <div className="grid grid-cols-2 px-2 pb-8 border-b border-b-foreground/10">
                   <Nav.Logo href="/">
                     <Image
                       src={LogoLight}
                       alt="House of Neeya Logo"
-                      height={70}
+                      height={50}
                     />
                   </Nav.Logo>
                   <Nav.CloseMenu>
-                    <X size={32} />
+                    <X size={24} strokeWidth={1} className="ml-auto" />
                   </Nav.CloseMenu>
                 </div>
-                <Nav.Item href="/" className="mt-auto" closeMenuOnClick>
-                  Home
-                </Nav.Item>
-                <Nav.Item href="/shop" closeMenuOnClick>
-                  Shop
-                </Nav.Item>
-                <Nav.Item href="/about" closeMenuOnClick>
-                  About
-                </Nav.Item>
-                <Nav.Item href="/contact" closeMenuOnClick>
-                  Contact
-                </Nav.Item>
-                <Nav.SideFooter>
+                <div className="flex flex-col gap-4 px-2 capitalize">
+                  <Nav.SideItem href="/" className="mt-auto" closeMenuOnClick>
+                    <House />
+                    Home
+                  </Nav.SideItem>
+                  <Nav.SideItem href="/shop" closeMenuOnClick>
+                    <ShoppingBag />
+                    Shop
+                  </Nav.SideItem>
+                  <Nav.SideItem href="/about" closeMenuOnClick>
+                    <Info />
+                    About
+                  </Nav.SideItem>
+                  <Nav.SideItem href="/contact" closeMenuOnClick>
+                    <Mail />
+                    Contact
+                  </Nav.SideItem>
+                </div>
+                <Nav.SideFooter className="flex flex-col px-5">
                   <p className="text-sm font-light">Follow us</p>
                   <Nav.SocialIcons>
                     <Nav.SocialIcon href="/">
@@ -134,9 +164,59 @@ const NavBar = () => {
                 <SideMenu.OpenSideMenu menu="wishlist">
                   <Heart width={18} strokeWidth={1.5} />
                 </SideMenu.OpenSideMenu>
-                <Link href="/profile">
-                  <CircleUser width={18} strokeWidth={1.5} />
-                </Link>
+                <DropdownMenu>
+                  <DropdownMenuTrigger render={
+                    <CircleUser width={18} strokeWidth={1.5} />
+                  } />
+                  <DropdownMenuContent>
+                    <DropdownMenuGroup>
+                      <DropdownMenuLabel className="p-0 font-normal">
+                        <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
+                          <Avatar>
+                            <AvatarImage src={data.user.avatar} alt={data.user.name} />
+                            <AvatarFallback>{initials}</AvatarFallback>
+                          </Avatar>
+                          <div className="grid flex-1 text-left text-sm leading-tight">
+                            <span className="truncate font-medium capitalize">{data.user.name}</span>
+                            <span className="truncate text-xs lowercase">{data.user.email}</span>
+                          </div>
+                        </div>
+                      </DropdownMenuLabel>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem>
+                        <SparklesIcon
+                        />
+                        Upgrade to Pro
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuGroup>
+                      <DropdownMenuItem>
+                        <BadgeCheckIcon
+                        />
+                        Account
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <CreditCardIcon
+                        />
+                        Billing
+                      </DropdownMenuItem>
+                      <DropdownMenuItem>
+                        <BellIcon
+                        />
+                        Notifications
+                      </DropdownMenuItem>
+                    </DropdownMenuGroup>
+                    <DropdownMenuSeparator />
+                    <DropdownMenuItem>
+                      <LogOutIcon
+                      />
+                      Log out
+                    </DropdownMenuItem>
+                  </DropdownMenuContent>
+                </DropdownMenu>
               </Nav.Actions>
               <SideMenu>
                 {

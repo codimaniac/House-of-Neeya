@@ -1,3 +1,4 @@
+import { cn } from "@/lib/utils";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa"
 
 interface PageNavigatorProps {
@@ -6,12 +7,13 @@ interface PageNavigatorProps {
   onPrevPage: () => void;
   currentPage: number;
   totalPages?: number;
+  className?: string;
 }
 
-const PageNavigator = ({onPageClick, onNextPage, onPrevPage, currentPage, totalPages}: PageNavigatorProps) => {
+const PageNavigator = ({onPageClick, onNextPage, onPrevPage, currentPage, totalPages, className}: PageNavigatorProps) => {
   
   return (
-    <div className="flex justify-end items-center gap-4 mt-3">
+    <div className={cn("flex justify-end items-center gap-4 mt-3", className)}>
       { currentPage>1 && <FaChevronLeft className="cursor-pointer" size={14} onClick={onPrevPage}/> }
       <div className="flex gap-2 text-sm">
         {

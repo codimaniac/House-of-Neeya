@@ -226,6 +226,7 @@ function Shop() {
               onPrevPage={() => console.log("Next Page")}
               currentPage={1}
               totalPages={4}
+              className="py-6"
             />
           </div>
         )}

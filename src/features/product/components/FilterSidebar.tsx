@@ -67,7 +67,7 @@ export default function FilterSidebar({ onChange, isOpen }: FilterSidebarProps) 
           <div className="uppercase text-xs tracking-widest">
             Category
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             {CATEGORIES.map((cat) => (
               <Checkbox
                 key={cat}
@@ -95,7 +95,7 @@ export default function FilterSidebar({ onChange, isOpen }: FilterSidebarProps) 
           <div className="uppercase text-xs tracking-widest">
             Availability
           </div>
-          <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-2">
             <RadioButton
               label="All Items"
               name="availability"

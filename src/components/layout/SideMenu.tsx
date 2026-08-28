@@ -1,4 +1,6 @@
-import { ReactNode } from "react";
+"use client"
+
+import { ReactNode, useEffect } from "react";
 import Overlay from "../ui/Overlay";
 import {
   type SideMenu,
@@ -28,6 +30,15 @@ type SideMenuComponent = React.FC<SideMenuProps> & {
 
 const SideMenu = (({ children, className }: SideMenuProps) => {
   const { activeMenu, isOpen, closeSideMenu } = useSideMenuToggle();
+  
+  useEffect(() => {
+    document.body.classList.toggle("overflow-hidden", isOpen);
+
+    return ()=> {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [isOpen])
+
   return (
     <>
       <Overlay
@@ -38,7 +49,7 @@ const SideMenu = (({ children, className }: SideMenuProps) => {
         className={`fixed inset-y-0 z-1000 md:w-2/5 transition-all duration-300 ${isOpen ? "right-0" : "right-[-200%]"} ${className}`}
       >
         <div
-          className={`flex flex-col bg-background text-foreground h-dvh gap-4 text-sm ${className}`}
+          className={`flex flex-col bg-muted text-foreground h-dvh gap-4 text-sm ${className}`}
         >
           {children(activeMenu)}
         </div>

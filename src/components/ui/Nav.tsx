@@ -1,9 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { ReactNode } from "react";
+import { ReactNode, useEffect } from "react";
 import Overlay from "./Overlay";
 import { useNavToggle } from "@/providers/NavToggleContext";
+import { cn } from "@/lib/utils";
+import { usePathname } from "next/navigation";
 
 interface NavProps {
   children: ReactNode;
@@ -85,7 +87,7 @@ function NavLogo({ href, children, className }: NavLogoProps) {
 function NavMenu({ children, className }: NavMenuProps) {
   return (
     <ul
-      className={`hidden md:flex items-center gap-9 text-xs lg:gap-12 lg:text-sm ${className}`}
+      className={`hidden md:flex items-center gap-5 md:gap-9 text-xs lg:gap-12 lg:text-sm ${className}`}
     >
       {children}
     </ul>
@@ -94,21 +96,30 @@ function NavMenu({ children, className }: NavMenuProps) {
 
 function NavSideMenu({ children, className }: NavSideMenuProps) {
   const { isOpen, closeNav } = useNavToggle();
+
+  useEffect(() => {
+    document.body.classList.toggle("overflow-hidden", isOpen);
+
+    return ()=> {
+      document.body.classList.remove("overflow-hidden");
+    }
+  }, [isOpen])
+
   return (
     <>
       <Overlay
         className={`z-999 ${isOpen ? "block" : "hidden"}`}
         onClick={closeNav}
       ></Overlay>
-      <div
+      <aside
         className={`fixed inset-0 z-1000 w-4/5 md:hidden transition-all duration-300 ${isOpen ? "left-0" : "-left-full"}`}
       >
-        <ul
-          className={`flex flex-col justify-center bg-foreground text-background h-dvh px-5 py-12 gap-12 text-sm md:hidden ${className}`}
+        <div
+          className={`fixed flex flex-col justify-center bg-background text-foreground h-dvh py-8 gap-12 text-sm md:hidden ${className}`}
         >
           {children}
-        </ul>
-      </div>
+        </div>
+      </aside>
     </>
   );
 }
@@ -136,8 +147,30 @@ function NavItem({
       onClick={closeMenuOnClick ? closeNav : undefined}
       className={`relative after:transition-all after:content-[""] after:block after:h-px after:w-0 after:bg-primary hover:after:w-full ${className}`}
     >
-      <li className="hover:text-primary font-light">{children}</li>
+      <li className="flex gap-4 items-center hover:text-primary text-sm font-light">{children}</li>
     </Link>
+  );
+}
+
+function NavSideItem({
+  href,
+  children,
+  className,
+  closeMenuOnClick,
+}: NavItemProps) {
+  const { closeNav } = useNavToggle();
+  const pathname = usePathname();
+
+  return (
+    <button className={cn("peer/menu-button group/menu-button flex w-full items-center gap-2 overflow-hidden rounded-sm px-3 py-4 text-left text-sm ring-sidebar-ring outline-hidden transition-[width,height,padding] group-has-data-[sidebar=menu-action]/menu-item:pr-8 group-data-[collapsible=icon]:size-8! group-data-[collapsible=icon]:p-2! hover:bg-accent/10 hover:text-sidebar-accent-foreground focus-visible:ring-2 active:bg-sidebar-accent active:text-sidebar-accent-foreground disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 data-open:hover:bg-sidebar-accent data-open:hover:text-sidebar-accent-foreground data-active:bg-accent/10 data-active:font-medium data-active:text-sidebar-accent-foreground data-active:border-l-2 data-active:border-l-accent [&_svg]:size-4 [&_svg]:shrink-0 [&>span:last-child]:truncate", className, pathname === href ? "bg-accent/10 border-l-2 border-l-accent" : "")}>
+      <Link
+        href={href}
+        onClick={closeMenuOnClick ? closeNav : undefined}
+        className="flex gap-2 items-center"
+      >
+        {children}
+      </Link>
+    </button>
   );
 }
 
@@ -167,12 +200,13 @@ function NavSocialIcons({ children, className }: NavSocialIconsProps) {
 
 function NavSocialIcon({ href, children, className }: NavSocialIconProps) {
   return (
-    <Link
-      href={href}
-      className={`flex items-center justify-center border border-primary/30 rounded-full gap-4 p-2 ${className}`}
-    >
-      {children}
-    </Link>
+    <div className={cn(`flex items-center justify-center border border-primary/30 hover:bg-accent hover:text-background rounded-full gap-4 p-2`, className)}>
+      <Link
+        href={href}
+      >
+        {children}
+      </Link>
+    </div>
   );
 }
 
@@ -189,6 +223,7 @@ Nav.Menu = NavMenu;
 Nav.SideMenu = NavSideMenu;
 Nav.CloseMenu = NavCloseMenu;
 Nav.Item = NavItem;
+Nav.SideItem = NavSideItem;
 Nav.Actions = NavActions;
 Nav.Hamburger = NavHamburger;
 Nav.SocialIcons = NavSocialIcons;

@@ -3,6 +3,7 @@ import { Cormorant_Garamond, DM_Sans, Noto_Sans, Playfair_Display } from "next/f
 import "./globals.css";
 import Toast from "@/components/ui/Toast";
 import { cn } from "@/lib/utils";
+import { TooltipProvider } from "@/components/ui/tooltip"
 
 const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
 
@@ -36,8 +37,10 @@ export default function RootLayout({
       className={cn("h-full", "antialiased", cormorantGaramond.variable, dmSans.variable, "font-sans", notoSans.variable, playfairDisplayHeading.variable)}
     >
       <body className="relative min-h-full flex flex-col overflow-x-hidden">
-        <Toast />
-        {children}
+        <TooltipProvider>
+          {/* <Toast /> */}
+          {children}
+        </TooltipProvider>
       </body>
     </html>
   );

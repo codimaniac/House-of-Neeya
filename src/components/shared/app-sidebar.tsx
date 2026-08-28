@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { NavProjects } from "@/components/shared/nav-projects";
 import { NavUser } from "@/components/shared/nav-user";
-import LogoDarkAlt from "@/assets/Logo-Icon-Dark-Alt.png"
+import LogoIconDarkAlt from "@/assets/Logo-Icon-Dark-Alt.png"
 import {
   Sidebar,
   SidebarContent,
@@ -20,6 +20,7 @@ import {
   Settings,
 } from "lucide-react";
 import Image from "next/image"
+import Link from "next/link";
 
 // This is sample data.
 const data = {
@@ -59,15 +60,15 @@ const data = {
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar className="bg-black" collapsible="icon" {...props}>
-      <SidebarHeader>
-        <div className="flex items-center gap-2 py-2 min-w-fit">
-          <div className="flex aspect-square size-8 items-center justify-center rounded-lg bg-sidebar-primary text-sidebar-primary-foreground">
-            <Image src={LogoDarkAlt} alt="Logo" className="h-4 w-auto" />
+    <Sidebar collapsible="icon" {...props}>
+      <SidebarHeader className="border-b border-b-foreground/10">
+        <div className="flex items-center gap-2 py-5.25 min-w-fit">
+          <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
+            <Link href="/"><Image src={LogoIconDarkAlt} alt="Logo" className="h-8 w-auto" /></Link>
           </div>
-          <div className="grid flex-1 text-left text-sm leading-tight">
-            <span className="truncate font-medium">House of Neeya</span>
-            <span className="truncate text-xs">Admin</span>
+          <div className="grid flex-1 text-left text-sm leading-tight tracking-widest">
+            <span className="truncate font-medium text-base font-serif">House of Neeya</span>
+            <span className="truncate text-[10px] font-light">Admin</span>
           </div>          
         </div>
       </SidebarHeader>
