@@ -52,7 +52,7 @@ export default function FilterSidebar({ onChange, isOpen }: FilterSidebarProps) 
   }
 
   return (
-    <aside className={`block md:sticky md:top-35 rounded-2xl h-fit p-8 bg-white w-full max-w-100 transition-all duration-3000 ease-in-out z-50 ${isOpen ? "left-0" : "-left-full"}`}>
+    <aside className={`block md:sticky md:top-35 rounded-2xl h-fit p-8 bg-white w-full max-w-100 transition-all duration-3000 ease-in-out ${isOpen ? "left-0" : "-left-full"}`}>
       <div className="flex items-baseline justify-between pb-4 border-b border-b-foreground/10">
         <h4 className="font-serif font-light text-foreground text-[24px]">Filters</h4>
         <button

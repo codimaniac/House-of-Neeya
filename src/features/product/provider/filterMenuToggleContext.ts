@@ -10,14 +10,14 @@ type FilterToggleContextType = {
 }
 
 const FilterToggleContext = createContext<FilterToggleContextType>({
-  isOpen: false,
+  isOpen: true,
   openFilter: () => {},
   closeFilter: () => {},
   toggleFilter: () => {},
 })
 
 export const FilterToggleProvider = ({ children }: { children: ReactNode }) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+  const [isOpen, setIsOpen] = useState<boolean>(true)
 
   const openFilter = () => setIsOpen(true)
   const closeFilter = () => setIsOpen(false)

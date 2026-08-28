@@ -20,6 +20,10 @@ import {
   ShoppingBag,
   Info,
   Mail,
+  User,
+  Package,
+  CircleHelp,
+  Settings,
 } from "lucide-react";
 import { NavToggleProvider } from "@/providers/NavToggleContext";
 import { FaFacebook, FaInstagram, FaTiktok, FaWhatsapp } from "react-icons/fa6";
@@ -30,6 +34,7 @@ import Cart from "@/features/cart/components/Cart";
 import Wishlist from "@/features/wishlist/components/Wishlist";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "../ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Link from "next/link";
 
 const announcement = [
   "New collection just dropped - shop now 🔥",
@@ -185,23 +190,28 @@ const NavBar = () => {
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                      <DropdownMenuItem>
-                        <SparklesIcon
+                      <DropdownMenuItem render={<Link href="/admin/dashboard" />}>
+                        <User
                         />
-                        Upgrade to Pro
+                        My Profile
+                      </DropdownMenuItem>
+                      <DropdownMenuItem render={<Link href="/admin/orders" />}>
+                        <Package
+                        />
+                        My Orders
                       </DropdownMenuItem>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
                     <DropdownMenuGroup>
-                      <DropdownMenuItem>
-                        <BadgeCheckIcon
+                      <DropdownMenuItem render={<Link href="/admin/settings" />}>
+                        <Settings
                         />
-                        Account
+                        Settings
                       </DropdownMenuItem>
-                      <DropdownMenuItem>
-                        <CreditCardIcon
+                      <DropdownMenuItem render={<Link href="/help" />}>
+                        <CircleHelp
                         />
-                        Billing
+                        Help & Support
                       </DropdownMenuItem>
                       <DropdownMenuItem>
                         <BellIcon
@@ -210,7 +220,7 @@ const NavBar = () => {
                       </DropdownMenuItem>
                     </DropdownMenuGroup>
                     <DropdownMenuSeparator />
-                    <DropdownMenuItem>
+                    <DropdownMenuItem render={<Link href="/signout" />}>
                       <LogOutIcon
                       />
                       Log out
