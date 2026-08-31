@@ -15,7 +15,7 @@ function Content({ children, className }: { children: ReactNode, className?: str
 
 function Meta({ children, className }: { children: ReactNode, className?: string }) {
     return (
-        <p className={cn("uppercase text-[9px] text-primary font-medium mb-2 tracking-[0.22em]", className)}>{children}</p>
+        <p className={cn("uppercase text-[10px] text-primary font-medium mb-2 tracking-[0.22em]", className)}>{children}</p>
     )
 }
 
@@ -27,7 +27,7 @@ function Title({ children, className }: { children: ReactNode, className?: strin
 
 function Description({ children, className }: { children: ReactNode, className?: string }) {
     return (
-        <p className={cn("text-sm text-muted-foreground", className)}>{children}</p>
+        <p className={cn("text-xs text-muted-foreground", className)}>{children}</p>
     )
 }
 
