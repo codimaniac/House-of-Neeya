@@ -46,7 +46,7 @@ const SideMenu = (({ children, className }: SideMenuProps) => {
         onClick={closeSideMenu}
       ></Overlay>
       <div
-        className={`fixed inset-y-0 z-1000 md:w-2/5 transition-all duration-300 ${isOpen ? "right-0" : "right-[-200%]"} ${className}`}
+        className={`fixed inset-y-0 z-1000 w-full md:w-2/5 transition-all duration-300 ${isOpen ? "right-0" : "right-[-200%]"} ${className}`}
       >
         <div
           className={`flex flex-col bg-muted text-foreground h-dvh gap-4 text-sm ${className}`}

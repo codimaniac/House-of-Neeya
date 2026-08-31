@@ -112,13 +112,9 @@ function NavSideMenu({ children, className }: NavSideMenuProps) {
         onClick={closeNav}
       ></Overlay>
       <aside
-        className={`fixed inset-0 z-1000 w-4/5 md:hidden transition-all duration-300 ${isOpen ? "left-0" : "-left-full"}`}
+        className={`fixed flex flex-col justify-center bg-background text-foreground h-dvh w-4/5 py-8 gap-12 text-sm inset-0 z-1000 md:hidden transition-all duration-300 ${isOpen ? "left-0" : "-left-full"} ${className}`}
       >
-        <div
-          className={`fixed flex flex-col justify-center bg-background text-foreground h-dvh py-8 gap-12 text-sm md:hidden ${className}`}
-        >
-          {children}
-        </div>
+        {children}
       </aside>
     </>
   );
