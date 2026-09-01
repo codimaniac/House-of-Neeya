@@ -64,7 +64,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
       <SidebarHeader className="border-b border-b-foreground/10">
         <div className="flex items-center gap-2 py-5.25 min-w-fit">
           <div className="flex aspect-square size-8 items-center justify-center rounded-lg">
-            <Link href="/"><Image src={LogoIconDarkAlt} alt="Logo" className="h-8 w-auto" /></Link>
+            <Link href="/"><Image src={LogoIconDarkAlt} alt="Logo" className="h-8 w-auto" loading="eager" /></Link>
           </div>
           <div className="grid flex-1 text-left text-sm leading-tight tracking-widest">
             <span className="truncate font-medium text-base font-serif">House of Neeya</span>

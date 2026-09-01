@@ -33,7 +33,7 @@ function Description({ children, className }: { children: ReactNode, className?:
 
 function Actions({ children, className }: { children: ReactNode, className?: string }) {
     return (
-        <div className={cn("flex flex-wrap md:items-end gap-4 space-x-2", className)}>{children}</div>
+        <div className={cn("flex flex-col gap-4 md:flex-row md:items-end space-x-2", className)}>{children}</div>
     )
 }
 
