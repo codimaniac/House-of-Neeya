@@ -1,5 +1,6 @@
 import { Button } from "@/components";
 import AdminPageHeader from "@/features/admin/components/AdminPageHeader";
+import AdminTable from "@/features/admin/components/AdminTable";
 import { Plus } from "lucide-react";
 
 export default function Page() {
@@ -23,7 +24,9 @@ export default function Page() {
           <div className="aspect-video rounded-xl bg-foreground/10" />
           <div className="aspect-video rounded-xl bg-foreground/10" />
         </div>
-        <div className="min-h-screen flex-1 rounded-xl bg-foreground/10 md:min-h-min" />
+        <div className="min-h-screen flex-1 rounded-xl bg-foreground/5 md:min-h-min">
+          <AdminTable />
+        </div>
       </div>
     </>
   );

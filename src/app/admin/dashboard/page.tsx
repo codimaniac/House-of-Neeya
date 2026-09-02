@@ -5,7 +5,7 @@ import AdminPageHeader from "@/features/admin/components/AdminPageHeader";
 import StatCard from "@/features/admin/components/StatCard";
 import SummaryTable from "@/features/admin/components/SummaryTable";
 import formatCurrency from "@/lib/formatCurrency";
-import { ArrowRight, ArrowUp, ClipboardCheck, PackageCheck, PackageX, Plus, ShoppingBag, Trophy } from "lucide-react";
+import { ArrowRight, ArrowUp, ClipboardCheck, PackageCheck, Plus, ShoppingBag, Trophy } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 type MonthToStringMap = {
@@ -94,10 +94,10 @@ export default function Page() {
           </StatCard>
         </div>
         <div className="flex flex-col md:flex-row gap-4 w-full">
-          <SummaryTable>
+          <SummaryTable className="flex-6">
             <SummaryTable.Header>
               <SummaryTable.Title>Need your attention</SummaryTable.Title>
-              <SummaryTable.Action>View all orders <ArrowRight /></SummaryTable.Action>
+              <SummaryTable.Action href="/admin/orders">View all orders <ArrowRight /></SummaryTable.Action>
             </SummaryTable.Header>
             <SummaryTable.Content>
               <SummaryTable.Empty>
@@ -107,10 +107,10 @@ export default function Page() {
               </SummaryTable.Empty>
             </SummaryTable.Content>
           </SummaryTable>
-          <SummaryTable>
+          <SummaryTable className="flex-4">
             <SummaryTable.Header>
               <SummaryTable.Title>Low stock</SummaryTable.Title>
-              <SummaryTable.Action>Manage products <ArrowRight /></SummaryTable.Action>
+              <SummaryTable.Action href="/admin/products">Manage products <ArrowRight /></SummaryTable.Action>
             </SummaryTable.Header>
             <SummaryTable.Content>
               <SummaryTable.Empty>
@@ -122,10 +122,10 @@ export default function Page() {
           </SummaryTable>
         </div>
         <div className="flex flex-col md:flex-row gap-4 w-full">
-          <SummaryTable>
+          <SummaryTable className="flex-6">
             <SummaryTable.Header>
               <SummaryTable.Title>Recent Orders</SummaryTable.Title>
-              <SummaryTable.Action>View all <ArrowRight /></SummaryTable.Action>
+              <SummaryTable.Action href="/admin/orders">View all <ArrowRight /></SummaryTable.Action>
             </SummaryTable.Header>
             <SummaryTable.Content>
               <SummaryTable.Empty>
@@ -135,10 +135,10 @@ export default function Page() {
               </SummaryTable.Empty>
             </SummaryTable.Content>
           </SummaryTable>
-          <SummaryTable>
+          <SummaryTable className="flex-4">
             <SummaryTable.Header>
               <SummaryTable.Title>Top Product</SummaryTable.Title>
-              <SummaryTable.Action>View analytics <ArrowRight /></SummaryTable.Action>
+              <SummaryTable.Action href="/admin/products">View analytics <ArrowRight /></SummaryTable.Action>
             </SummaryTable.Header>
             <SummaryTable.Content>
               <SummaryTable.Empty>

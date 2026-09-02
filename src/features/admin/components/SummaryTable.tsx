@@ -1,28 +1,33 @@
+"use client"
+
 import { Button } from '@/components'
 import cn from '@/lib/cn'
+import { useRouter } from 'next/navigation'
 import { ReactNode } from 'react'
 
 const SummaryTable = ({ children, className }: { children: ReactNode, className?: string }) => {
   return (
-    <div className={cn("flex-6 rounded-md bg-foreground/5 p-6", className)}>{children}</div>
+    <div className={cn("rounded-md bg-foreground/5 p-6", className)}>{children}</div>
   )
 }
 
 function Header({ children, className }: { children: ReactNode, className?: string }) {
     return (
-        <p className={cn("flex items-center justify-between", className)}>{ children }</p>
+        <div className={cn("flex items-center justify-between", className)}>{ children }</div>
     )
 }
 
 function Title({ children, className }: { children: ReactNode, className?: string }) {
     return (
-        <p className={cn("font-serif italic text-xl", className)}>{ children }</p>
+        <h2 className={cn("font-serif italic text-xl", className)}>{ children }</h2>
     )
 }
 
-function Action({ children, className }: { children: ReactNode, className?: string }) {
+function Action({ children, href, className }: { children: ReactNode, href: string, className?: string }) {
+    const router = useRouter();
+
     return (
-        <Button variant="link" className={cn("flex items-center gap-2 text-[10px] text-foreground/40 font-semibold tracking-[0.22em] w-fit capitalize", className)}>{ children }</Button>
+        <Button variant="link" className={cn("flex items-center gap-2 text-[10px] text-foreground/40 font-semibold tracking-[0.22em] w-fit normal-case", className)} onClick={() => router.push(href)}>{ children }</Button>
     )
 }
 
