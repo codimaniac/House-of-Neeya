@@ -1,11 +1,14 @@
 "use client"
 
 import { Button } from "@/components";
+import AdminPageContent from "@/features/admin/components/AdminPageContent";
 import AdminPageHeader from "@/features/admin/components/AdminPageHeader";
-import StatCard from "@/features/admin/components/StatCard";
+import ProductForm from "@/features/admin/products/components/ProductForm/ProductForm";
+import ProductFormModal from "@/features/admin/products/components/ProductForm/ProductFormModal";
+import StatCard from "@/features/admin/dashboard/components/StatCard";
 import SummaryTable from "@/features/admin/components/SummaryTable";
 import formatCurrency from "@/lib/formatCurrency";
-import { ArrowRight, ArrowUp, ClipboardCheck, PackageCheck, Plus, ShoppingBag, Trophy } from "lucide-react";
+import { ArrowRight, ArrowUp, ClipboardCheck, PackageCheck, ShoppingBag, Trophy } from "lucide-react";
 import { useRouter } from "next/navigation";
 
 type MonthToStringMap = {
@@ -36,23 +39,23 @@ export default function Page() {
   let timeOfDay
 
   switch (true) {
-      case (hour >= 5 && hour < 12):
-        timeOfDay = "Morning"
-        break;
+    case (hour >= 5 && hour < 12):
+      timeOfDay = "Morning"
+      break;
 
-      case (hour >= 12 && hour < 17):
-        timeOfDay = "Afternoon"
-        break;
+    case (hour >= 12 && hour < 17):
+      timeOfDay = "Afternoon"
+      break;
 
-      case (hour >= 17 && hour < 21):
-        timeOfDay = "Evening"
-        break;
-    
-      default:
-        timeOfDay = "Night"
-    }
+    case (hour >= 17 && hour < 21):
+      timeOfDay = "Evening"
+      break;
 
-    const router = useRouter()
+    default:
+      timeOfDay = "Night"
+  }
+
+  const router = useRouter()
 
 
   return (
@@ -67,14 +70,17 @@ export default function Page() {
         </AdminPageHeader.Content>
         <AdminPageHeader.Actions>
           <Button variant="secondary" className="w-fit" onClick={() => router.push("/admin/orders")}>View Pending Orders</Button>
-          <Button className="w-fit"><Plus />Add Product</Button>
+          <ProductFormModal.Open action="add" />
         </AdminPageHeader.Actions>
       </AdminPageHeader>
-      <div className="flex flex-1 flex-col gap-4 p-4">
-        <div className="grid auto-rows-min gap-4 grid-cols-2 md:grid-cols-4">
+      <AdminPageContent>
+        <ProductFormModal>
+          <ProductForm />
+        </ProductFormModal>
+        <div className="grid auto-rows-min gap-4 md:grid-cols-4">
           <StatCard>
             <StatCard.Label>Revenue Today</StatCard.Label>
-            <StatCard.Value>{ formatCurrency(142200) }</StatCard.Value>
+            <StatCard.Value>{formatCurrency(142200)}</StatCard.Value>
             <StatCard.Progress><ArrowUp size={12} /> 8.2% vs Yesterday</StatCard.Progress>
           </StatCard>
           <StatCard>
@@ -137,7 +143,7 @@ export default function Page() {
           </SummaryTable>
           <SummaryTable className="flex-4">
             <SummaryTable.Header>
-              <SummaryTable.Title>Top Product</SummaryTable.Title>
+              <SummaryTable.Title>Top Products</SummaryTable.Title>
               <SummaryTable.Action href="/admin/products">View analytics <ArrowRight /></SummaryTable.Action>
             </SummaryTable.Header>
             <SummaryTable.Content>
@@ -149,7 +155,7 @@ export default function Page() {
             </SummaryTable.Content>
           </SummaryTable>
         </div>
-      </div>
+      </AdminPageContent>
     </>
   );
 }

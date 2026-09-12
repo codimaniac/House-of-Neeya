@@ -32,6 +32,8 @@ const Hero = () => {
           <Image
             src={LogoIcon}
             alt="Transparent Hero Background"
+            fetchPriority="high"
+            loading="eager"
             className="not-lg:absolute not-lg:inset-0 not-lg:ml-auto not-lg:mt-55 not-lg:w-1/2 lg:m-auto opacity-5 w-70"
           />
         </div>

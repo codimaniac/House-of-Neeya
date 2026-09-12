@@ -11,9 +11,6 @@ import {
   MenuIcon,
   X,
   ShoppingCart,
-  SparklesIcon,
-  BadgeCheckIcon,
-  CreditCardIcon,
   BellIcon,
   LogOutIcon,
   House,
@@ -171,7 +168,7 @@ const NavBar = () => {
                 </SideMenu.OpenSideMenu>
                 <DropdownMenu>
                   <DropdownMenuTrigger render={
-                    <CircleUser width={18} strokeWidth={1.5} />
+                    <button><CircleUser width={18} strokeWidth={1.5} /></button>
                   } />
                   <DropdownMenuContent>
                     <DropdownMenuGroup>

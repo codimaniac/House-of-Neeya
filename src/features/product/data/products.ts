@@ -133,7 +133,7 @@ export const products: Product[] = Array.from({length: 12}, (_, index) => {
         brand: brands[0],
         price: price,
         discountedPrice: hasDiscount ? Math.floor(price * 0.85) : undefined,
-        images: {
+        image: {
             id: crypto.randomUUID(),
             src: "https://res.cloudinary.com/dagamvlju/image/upload/q_auto/f_auto/v1781863746/IMG-20260604-WA0023_nlh91a.jpg",
             alt: name,

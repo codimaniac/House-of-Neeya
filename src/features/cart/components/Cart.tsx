@@ -4,7 +4,7 @@ import { X } from "lucide-react";
 import CartItems from "./CartItems";
 import { useCartStore } from "../store/cartStore";
 import CartItem from "./CartItem";
-import {Button} from "@/components"
+import { Button } from "@/components"
 import formatCurrency from "@/lib/formatCurrency";
 import { useRouter } from "next/navigation";
 import { useSideMenuToggle } from "@/providers/SideMenuToggleContext";
@@ -39,7 +39,7 @@ const Cart = () => {
               const itemTotal = getSubtotal(item.id, item.color, item.size);
               return (
                 <CartItem key={index}>
-                  <CartItem.Image src={item.images.src} alt={item.images.alt} />
+                  <CartItem.Image src={item.image.src} alt={item.image.alt} />
                   <CartItem.Content>
                     <CartItem.ColGroup className="justify-between mr-auto">
                       <CartItem.Name>{item.name}</CartItem.Name>

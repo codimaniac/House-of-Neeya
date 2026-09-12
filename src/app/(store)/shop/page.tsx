@@ -18,6 +18,7 @@ import {
   FilterToggleProvider,
   useFilterToggle,
 } from "@/features/product/provider/filterMenuToggleContext";
+import { mapProductFromDatabase } from "@/features/product/api/product.mappers";
 
 export default function Home() {
   return (
@@ -37,8 +38,14 @@ function Shop() {
   useEffect(() => {
     async function loadProducts() {
       try {
+        setLoading(true);
+
         const data = await getProducts();
-        setProducts(data);
+        const mappedProducts = data.map(mapProductFromDatabase);
+
+        setProducts(mappedProducts);
+      } catch (error) {
+        console.error("Failed to load products:", error);
       } finally {
         setLoading(false);
       }
@@ -147,8 +154,8 @@ function Shop() {
                       return (
                         <>
                           <ProductCard.Image
-                            src={product.images.src}
-                            alt={product.images.alt}
+                            src={product.image.src}
+                            alt={product.image.alt}
                           />
                           <ProductCard.Tags>
                             {product.tags?.map((tag) => {

@@ -1,48 +1,52 @@
-export type ProductCategory = "Men's Footwear" | "Women's Footwear" | "Clothing" | "Handbags";
+export type ProductCategory =
+  | "Men's Footwear"
+  | "Women's Footwear"
+  | "Clothing"
+  | "Handbags";
 
-export type ProductTags = "New" | "Featured" | "Sales" | "Best-Seller";
+export type ProductTag = "New" | "Featured" | "Sales" | "Best-Seller";
 
-export interface ProductVariants {
-    id: string;
-    color?: string;
-    size?: string;
-    stock: number;
+export interface ProductVariant {
+  id: string;
+  color?: string;
+  size?: string;
+  stock: number;
 }
 
 export interface ProductImage {
-    id: string;
-    src: string;
-    alt: string;
+  id: string;
+  src: string;
+  alt: string;
 }
 
 export interface Product {
-    id: string;
-    name: string;
-    slug: string;
-    description: string;
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
 
-    category: ProductCategory;
-    brand: string;
+  category: ProductCategory;
+  brand: string;
 
-    price: number;
-    discountedPrice?: number;
+  price: number;
+  discountedPrice?: number;
 
-    images: ProductImage;
-    variants?: ProductVariants[];
+  image: ProductImage;
+  variants?: ProductVariant[];
 
-    rating: number;
-    reviewCount: number;
+  rating: number;
+  reviewCount: number;
 
-    tags?: ProductTags[];
+  tags?: ProductTag[];
 
-    isFeatured?: boolean;
-    isNewArrival?: boolean;
+  isFeatured?: boolean;
+  isNewArrival?: boolean;
 
-    stock: number;
-    sku: string;
+  stock: number;
+  sku: string;
 
-    createdAt: string;
-    updatedAt: string;
+  createdAt: string;
+  updatedAt: string;
 }
 
 export type LatestProduct = Pick<
@@ -53,6 +57,6 @@ export type LatestProduct = Pick<
   | "category"
   | "price"
   | "discountedPrice"
-  | "images"
+  | "image"
   | "tags"
 >;

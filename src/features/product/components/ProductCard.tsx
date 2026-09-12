@@ -3,9 +3,9 @@
 import formatCurrency from "@/lib/formatCurrency";
 import Image from "next/image";
 import React, { useState } from "react";
-import { Product, ProductVariants } from "../types/product.types";
+import { Product, ProductVariant } from "../types/product.types";
 
-type RenderChildren = (selectedOption: {color: string, size: string}, handleClick: (variant: ProductVariants) => void) => React.ReactNode;
+type RenderChildren = (selectedOption: { color: string, size: string }, handleClick: (variant: ProductVariant) => void) => React.ReactNode;
 
 type ProductCardProps = { children?: React.ReactNode | RenderChildren; className?: string; };
 
@@ -25,7 +25,7 @@ type ProductWishlistProps = {
   isActive?: boolean;
 };
 
-type ProductVariantSelectorProps = { children: React.ReactNode; className?: string };
+type ProductVariantelectorProps = { children: React.ReactNode; className?: string };
 
 type ProductVariantGroupProps = { children: React.ReactNode; className?: string };
 
@@ -35,7 +35,7 @@ type ProductVariantGroupProps = { children: React.ReactNode; className?: string 
 // ProductVariantOptionAlt already does correctly via props. Use
 // ProductCard.VariantOption (now pointing at the "Alt" implementation) going
 // forward — there is only one variant option component now.
-type ProductVariantOptionProps = { selectedOption: {color?: string, size?: string}; handleClick: () => void; variant: ProductVariants; className?: string };
+type ProductVariantOptionProps = { selectedOption: { color?: string, size?: string }; handleClick: () => void; variant: ProductVariant; className?: string };
 
 type ProductCardContentProps = { children: React.ReactNode; className?: string };
 
@@ -44,6 +44,8 @@ type ProductCategoryProps = { children: React.ReactNode; className?: string };
 type ProductNameProps = { children: React.ReactNode; className?: string };
 
 type ProductPriceProps = { product: Partial<Product>; className?: string };
+
+type ProductVariantSelectorProps = { children: React.ReactNode; className?: string };
 
 type ProductDescriptionProps = { children: React.ReactNode; className?: string };
 
@@ -68,14 +70,14 @@ type ProductCardComponent = React.FC<ProductCardProps> & {
   Size: typeof ProductSize;
 }
 
-const ProductCard = (({ children, className  }: ProductCardProps) => {
-  const [selectedOption, setSelectedOption] = useState<{color: string, size: string}>({color: "", size: ""});
-  const handleClick = (variant: ProductVariants) => {
+const ProductCard = (({ children, className }: ProductCardProps) => {
+  const [selectedOption, setSelectedOption] = useState<{ color: string, size: string }>({ color: "", size: "" });
+  const handleClick = (variant: ProductVariant) => {
     if (selectedOption?.color === variant.color && selectedOption?.size === variant.size) {
-      setSelectedOption({color: "", size: ""})
+      setSelectedOption({ color: "", size: "" })
       return
     }
-    setSelectedOption({color: variant.color || "", size: variant.size || ""});
+    setSelectedOption({ color: variant.color || "", size: variant.size || "" });
   };
 
   return (
@@ -135,9 +137,8 @@ function ProductWishlist({ children, className, onClick, isActive }: ProductWish
         e.stopPropagation();
         onClick?.(e);
       }}
-      className={`absolute flex top-0 right-0 m-2 md:m-3 lg:m-4 text-[8px] cursor-pointer transition-all duration-500 ${
-        isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
-      } ${className}`}
+      className={`absolute flex top-0 right-0 m-2 md:m-3 lg:m-4 text-[8px] cursor-pointer transition-all duration-500 ${isActive ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+        } ${className}`}
     >
       {children}
     </button>

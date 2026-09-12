@@ -26,7 +26,7 @@ export default function Checkbox({ label, className = "", ...props }: CheckboxPr
           "
         />
         <svg
-          className="pointer-events-none absolute left-[3px] top-[3px] h-[9px] w-[7px] opacity-0 peer-checked:opacity-100 transition-opacity"
+          className="pointer-events-none absolute left-[2px] top-[2px] h-[13px] w-[13px] opacity-0 peer-checked:opacity-100 transition-opacity"
           viewBox="0 0 7 9"
           fill="none"
         >

@@ -7,7 +7,7 @@ export type CartProduct = Pick<
   | "category"
   | "price"
   | "discountedPrice"
-  | "images"
+  | "image"
   | "stock"
   | "tags"
 > & {

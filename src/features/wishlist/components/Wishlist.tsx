@@ -33,8 +33,8 @@ const Wishlist = () => {
                   return (
                     <>
                       <ProductCard.Image
-                        src={wishlistedProduct.images.src}
-                        alt={wishlistedProduct.images.alt}
+                        src={wishlistedProduct.image.src}
+                        alt={wishlistedProduct.image.alt}
                       />
                       <ProductCard.Tags>
                         {wishlistedProduct.tags?.map((tag) => {

@@ -4,8 +4,6 @@ import { Button } from "@/components";
 import Input from "@/components/ui/Input";
 import Select from "@/components/ui/SelectInput";
 import { ReactNode, ChangeEvent } from "react";
-import { FaPaypal } from "react-icons/fa";
-import { FaFlutter } from "react-icons/fa6";
 import formatCurrency from "@/lib/formatCurrency";
 
 const PaymentMethod = ({

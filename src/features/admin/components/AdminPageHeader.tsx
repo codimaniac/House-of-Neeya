@@ -3,7 +3,7 @@ import { ReactNode } from "react"
 
 const AdminPageHeader = ({ children, className }: { children: ReactNode, className?: string }) => {
     return (
-        <div className={cn("flex flex-col md:flex-row gap-8 justify-between md:items-end p-4", className)}>{children}</div>
+        <div className={cn("flex flex-col md:flex-row gap-8 justify-between md:items-end px-8 py-4", className)}>{children}</div>
     )
 }
 
@@ -27,7 +27,7 @@ function Title({ children, className }: { children: ReactNode, className?: strin
 
 function Description({ children, className }: { children: ReactNode, className?: string }) {
     return (
-        <p className={cn("text-xs text-muted-foreground", className)}>{children}</p>
+        <p className={cn("text-xs text-foreground/60 tracking-widest font-light mt-2", className)}>{children}</p>
     )
 }
 
