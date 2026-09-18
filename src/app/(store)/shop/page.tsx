@@ -32,6 +32,8 @@ function Shop() {
   const { isOpen, toggleFilter } = useFilterToggle();
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+  const [pageNumber, setPageNumber] = useState<number>(1)
   const { addToCart } = useCartStore();
   const { isInWishlist, toggleWishlist } = useWishlistStore();
 
@@ -40,12 +42,17 @@ function Shop() {
       try {
         setLoading(true);
 
-        const data = await getProducts();
+        const { data, error } = await getProducts();
         const mappedProducts = data.map(mapProductFromDatabase);
+
+        if (error) {
+          throw new Error(error)
+        }
 
         setProducts(mappedProducts);
       } catch (error) {
         console.error("Failed to load products:", error);
+        setError(error instanceof Error ? error.message : String(error));
       } finally {
         setLoading(false);
       }
@@ -107,6 +114,16 @@ function Shop() {
                 return <ProductCardLoader key={index} />;
               })}
             </ProductGrid>
+            <PageNavigator
+              onPageClick={(number) =>
+                setPageNumber(number)
+              }
+              onNextPage={() => setPageNumber((prev) => prev + 1)}
+              onPrevPage={() => setPageNumber((prev) => prev - 1)}
+              currentPage={pageNumber}
+              totalPages={3}
+              className="py-6"
+            />
           </div>
         ) : (
           <div className="flex flex-col w-full @container">
@@ -144,6 +161,13 @@ function Shop() {
                 </option>
               </Select>
             </div>
+            {
+              error &&
+              <div className="flex flex-col items-center justify-center h-[60dvh]">
+                <h1 className="text-2xl font-bold mb-4">Error</h1>
+                <p className="text-lg text-gray-600">{error}</p>
+              </div>
+            }
             <ProductGrid>
               {products.map((product) => {
                 const inWishlist = isInWishlist(product.id);
@@ -226,13 +250,13 @@ function Shop() {
               })}
             </ProductGrid>
             <PageNavigator
-              onPageClick={(pageNumber) =>
-                console.log("Page number:", pageNumber)
+              onPageClick={(number) =>
+                setPageNumber(number)
               }
-              onNextPage={() => console.log("Next Page")}
-              onPrevPage={() => console.log("Next Page")}
-              currentPage={1}
-              totalPages={4}
+              onNextPage={() => setPageNumber((prev) => prev + 1)}
+              onPrevPage={() => setPageNumber((prev) => prev - 1)}
+              currentPage={pageNumber}
+              totalPages={products?.length / 12}
               className="py-6"
             />
           </div>

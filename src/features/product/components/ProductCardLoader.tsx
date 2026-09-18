@@ -3,7 +3,7 @@ import { Button } from "@/components";
 const ProductCardLoader = () => {
   return (
     <div
-      className={`flex flex-col overflow-hidden relative w-full rounded-lg`}
+      className={`flex flex-col relative w-full rounded-lg`}
     >
       <ProductImageLoader />
       <ProductCardLoaderContent />

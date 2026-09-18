@@ -8,12 +8,12 @@ export async function getProducts() {
   const { data, error } = await supabase().from("Products").select("*");
 
   if (error) {
-    throw Error(error.message);
+    throw new Error(error.message);
   }
 
   console.log(data);
 
-  return data;
+  return { data, error };
 }
 
 export async function getProduct(id: string) {

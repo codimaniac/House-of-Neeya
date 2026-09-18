@@ -25,8 +25,6 @@ type ProductWishlistProps = {
   isActive?: boolean;
 };
 
-type ProductVariantelectorProps = { children: React.ReactNode; className?: string };
-
 type ProductVariantGroupProps = { children: React.ReactNode; className?: string };
 
 // NOTE: ProductVariantOption (the version with its own internal useState,
