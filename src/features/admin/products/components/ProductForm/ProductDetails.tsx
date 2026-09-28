@@ -7,13 +7,23 @@ import {
 } from "@/features/product/types/product.types";
 
 import { ProductFormValues } from "../../schema/product.schema";
+import { useState } from "react";
 
 interface ProductDetailsProps {
   categories: ProductCategory[];
 }
 
 const ProductDetails = ({ categories }: ProductDetailsProps) => {
-  const { register } = useFormContext<ProductFormValues>();
+  const { register, formState: { errors } } = useFormContext<ProductFormValues>();
+  const slugify = (text: string) => {
+    return text
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9]+/g, "-")
+      .replace(/^-+|-+$/g, "");
+  }
+  const productName = register("name").name || "";
+  const [slug, setSlug] = useState(slugify(productName));
 
   return (
     <>
@@ -26,16 +36,30 @@ const ProductDetails = ({ categories }: ProductDetailsProps) => {
         label="Product Name *"
         placeholder="Luxury Tote Bag"
         className="min-w-70"
-        {...register("name")}
+        error={errors.name?.message}
+        {...register("name", {
+          onChange: (e) => {
+            const newSlug = slugify(e.target.value);
+            setSlug(newSlug);
+            console.log(slug)
+          },
+        })}
       />
 
       <div className="flex flex-col md:flex-row justify-between gap-4">
         <Input
           type="text"
           label="Slug *"
+          value={slug}
           placeholder="luxury-tote-bag"
           className="min-w-70"
-          {...register("slug")}
+          error={errors.slug?.message}
+          {...register("slug", {
+            onChange: (e) => {
+              const newSlug = slugify(e.target.value);
+              setSlug(newSlug);
+            },
+          })}
         />
 
         <Input
@@ -43,6 +67,7 @@ const ProductDetails = ({ categories }: ProductDetailsProps) => {
           label="Brand *"
           placeholder="House of Neeya"
           className="min-w-70"
+          error={errors.brand?.message}
           {...register("brand")}
         />
       </div>
@@ -52,6 +77,7 @@ const ProductDetails = ({ categories }: ProductDetailsProps) => {
         label="Description *"
         placeholder="A brief description of the piece"
         className="min-w-70"
+        error={errors.description?.message}
         {...register("description")}
       />
 
@@ -69,6 +95,7 @@ const ProductDetails = ({ categories }: ProductDetailsProps) => {
           label="SKU *"
           placeholder="HON-DOL-001"
           className="min-w-70"
+          error={errors.sku?.message}
           {...register("sku")}
         />
       </div>

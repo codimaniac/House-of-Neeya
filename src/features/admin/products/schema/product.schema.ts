@@ -31,7 +31,7 @@ export const productSchema = z.object({
 
   discountedPrice: z
     .number()
-    .positive("Discounted price must be greater than 0")
+    .nonnegative("Discounted price must be greater than 0")
     .optional(),
 
   image: z.object({

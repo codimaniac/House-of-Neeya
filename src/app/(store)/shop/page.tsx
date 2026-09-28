@@ -19,6 +19,7 @@ import {
   useFilterToggle,
 } from "@/features/product/provider/filterMenuToggleContext";
 import { mapProductFromDatabase } from "@/features/product/api/product.mappers";
+import ErrorState from "@/components/ui/ErrorState";
 
 export default function Home() {
   return (
@@ -34,6 +35,12 @@ function Shop() {
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string>("");
   const [pageNumber, setPageNumber] = useState<number>(1)
+  const productsPerPage = 12;
+  const startIndex = (pageNumber - 1) * productsPerPage;
+  const endIndex = startIndex + productsPerPage;
+  const paginatedProducts = products.slice(startIndex, endIndex);
+  const totalPages = Math.ceil(products.length / productsPerPage);
+
   const { addToCart } = useCartStore();
   const { isInWishlist, toggleWishlist } = useWishlistStore();
 
@@ -163,13 +170,10 @@ function Shop() {
             </div>
             {
               error &&
-              <div className="flex flex-col items-center justify-center h-[60dvh]">
-                <h1 className="text-2xl font-bold mb-4">Error</h1>
-                <p className="text-lg text-gray-600">{error}</p>
-              </div>
+              <ErrorState error={error} />
             }
             <ProductGrid>
-              {products.map((product) => {
+              {paginatedProducts.map((product) => {
                 const inWishlist = isInWishlist(product.id);
 
                 return (
@@ -256,7 +260,7 @@ function Shop() {
               onNextPage={() => setPageNumber((prev) => prev + 1)}
               onPrevPage={() => setPageNumber((prev) => prev - 1)}
               currentPage={pageNumber}
-              totalPages={products?.length / 12}
+              totalPages={totalPages}
               className="py-6"
             />
           </div>

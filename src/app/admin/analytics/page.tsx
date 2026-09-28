@@ -8,19 +8,48 @@ import AdminTable from "@/features/admin/components/AdminTable";
 import StatCard from "@/features/admin/dashboard/components/StatCard";
 import SummaryTable from "@/features/admin/components/SummaryTable";
 import formatCurrency from "@/lib/formatCurrency";
-import { ArrowRight, ArrowUp, ClipboardCheck, PackageCheck, ShoppingBag, Trophy } from "lucide-react";
+import { ArrowRight, ArrowUp, ClipboardCheck, MoreHorizontal, PackageCheck, ShoppingBag, Trophy } from "lucide-react";
+import { TableCell, TableRow } from "@/components/ui/table";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import ProductFormModal from "@/features/admin/products/components/ProductForm/ProductFormModal";
+import { useEffect, useState } from "react";
+import { getProducts } from "@/features/product/api/product.services";
+import { mapProductFromDatabase } from "@/features/product/api/product.mappers";
+import { Product } from "@/features/product/types/product.types";
+import ErrorState from "@/components/ui/ErrorState";
+import Loader from "@/components/ui/Loader";
 
 const rowHeaders = [<Checkbox label="" key={1} />, "product", "category", "price", "stock", "badge", "status", ""]
-const row = {
-  product: "Product A",
-  category: "Category A",
-  price: "$100.00",
-  stock: "In Stock",
-  badge: "New",
-  status: "Active",
-}
 
 export default function Page() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string>("");
+
+  useEffect(() => {
+    async function loadProducts() {
+      try {
+        setLoading(true);
+
+        const { data, error } = await getProducts();
+        const mappedProducts = data.map(mapProductFromDatabase);
+
+        if (error) {
+          throw new Error(error)
+        }
+
+        setProducts(mappedProducts);
+      } catch (error) {
+        console.error("Failed to load products:", error);
+        setError(error instanceof Error ? error.message : String(error));
+      } finally {
+        setLoading(false);
+      }
+    }
+
+    loadProducts()
+  }, [])
+
   return (
     <>
       <AdminPageHeader>
@@ -67,7 +96,6 @@ export default function Page() {
           <SummaryTable className="flex-6">
             <SummaryTable.Header>
               <SummaryTable.Title>Revenue trend</SummaryTable.Title>
-              <SummaryTable.Action href="/admin/orders">View all orders <ArrowRight /></SummaryTable.Action>
             </SummaryTable.Header>
             <SummaryTable.Content>
               <SummaryTable.Empty>
@@ -80,7 +108,6 @@ export default function Page() {
           <SummaryTable className="flex-4">
             <SummaryTable.Header>
               <SummaryTable.Title>New vs returning</SummaryTable.Title>
-              <SummaryTable.Action href="/admin/products">Manage products <ArrowRight /></SummaryTable.Action>
             </SummaryTable.Header>
             <SummaryTable.Content>
               <SummaryTable.Empty>
@@ -95,7 +122,6 @@ export default function Page() {
           <SummaryTable className="flex-6">
             <SummaryTable.Header>
               <SummaryTable.Title>Category performance</SummaryTable.Title>
-              <SummaryTable.Action href="/admin/orders">View all <ArrowRight /></SummaryTable.Action>
             </SummaryTable.Header>
             <SummaryTable.Content>
               <SummaryTable.Empty>
@@ -108,7 +134,6 @@ export default function Page() {
           <SummaryTable className="flex-4">
             <SummaryTable.Header>
               <SummaryTable.Title>Top Products</SummaryTable.Title>
-              <SummaryTable.Action href="/admin/products">View analytics <ArrowRight /></SummaryTable.Action>
             </SummaryTable.Header>
             <SummaryTable.Content>
               <SummaryTable.Empty>
@@ -121,9 +146,18 @@ export default function Page() {
         </div>
       </AdminPageContent>
       <AdminPageContent>
-        <div className="min-h-screen flex-1 rounded-xl bg-foreground/5 md:min-h-min">
-          <AdminTable rowHeaders={rowHeaders} row={row} />
-        </div>
+          <SummaryTable className="flex-4">
+            <SummaryTable.Header>
+              <SummaryTable.Title>Orders by state</SummaryTable.Title>
+            </SummaryTable.Header>
+            <SummaryTable.Content>
+              <SummaryTable.Empty>
+                <Trophy />
+                <p className="font-bold">No top selling state yet</p>
+                <p className="normal-case">Start selling to get more analysis!</p>
+              </SummaryTable.Empty>
+            </SummaryTable.Content>
+          </SummaryTable>
       </AdminPageContent>
     </>
   );

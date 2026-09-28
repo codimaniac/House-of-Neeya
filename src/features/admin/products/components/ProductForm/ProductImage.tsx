@@ -20,6 +20,7 @@ const ProductImage = () => {
           label="Image URL *"
           placeholder="https://..."
           className="min-w-70"
+          error={errors.image?.src?.message}
           {...register("image.src")}
         />
         <Input
@@ -27,15 +28,10 @@ const ProductImage = () => {
           label="ALT Text *"
           placeholder="A picture of a leather tote bag."
           className="min-w-70"
+          error={errors.image?.alt?.message}
           {...register("image.alt")}
         />
       </div>
-      {errors.image?.src && (
-        <p className="text-xs text-destructive"> {errors.image.src.message} </p>
-      )}
-      {errors.image?.alt && (
-        <p className="text-xs text-destructive"> {errors.image.alt.message} </p>
-      )}
     </>
   );
 };

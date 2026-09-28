@@ -11,10 +11,12 @@ import ProductVariants from './ProductVariants';
 import ProductTags from './ProductTags';
 import { ProductFormValues, productSchema } from "../../schema/product.schema";
 import { PRODUCT_CATEGORIES, PRODUCT_TAGS } from "../../constants/product.constants";
-import { createProduct } from "@/features/product/api/product.services";
-import { useState } from "react";
+import { createProduct, getProduct } from "@/features/product/api/product.services";
+import { useEffect, useState } from "react";
+import { mapProductFromDatabase } from "@/features/product/api/product.mappers";
 
 const ProductForm = () => {
+  const { action, CloseProductForm } = useProductFormToggle();
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productSchema),
     defaultValues: {
@@ -43,7 +45,7 @@ const ProductForm = () => {
 
   const onInvalid = (errors: FieldErrors<ProductFormValues>) => {
     console.log("FORM ERRORS:", errors);
-};
+  };
 
   const onSubmit = async (data: ProductFormValues) => {
     try {
@@ -60,10 +62,45 @@ const ProductForm = () => {
 
     } finally {
       setIsSubmitting(false);
+      CloseProductForm();
     }
   };
 
-  const { action, CloseProductForm } = useProductFormToggle();
+  useEffect(() => {
+    async function fetchProduct() {
+      if (action === "edit") {
+        try {
+          const productId = "some-product-id"; // Replace with actual product ID
+          const data = await getProduct(productId);
+          console.log("Fetched product data:", data);
+          const mappedProduct = mapProductFromDatabase(data[0]);
+
+          if (mappedProduct) {
+            form.reset({
+              name: mappedProduct.name,
+              slug: mappedProduct.slug,
+              description: mappedProduct.description,
+              category: mappedProduct.category,
+              brand: mappedProduct.brand,
+              price: mappedProduct.price,
+              discountedPrice: mappedProduct.discountedPrice,
+              stock: mappedProduct.stock,
+              sku: mappedProduct.sku,
+              image: mappedProduct.image,
+              variants: mappedProduct.variants,
+              tags: mappedProduct.tags,
+              isFeatured: mappedProduct.isFeatured,
+              isNewArrival: mappedProduct.isNewArrival,
+            });
+          }
+        } catch (error) {
+          console.error("Failed to fetch product:", error);
+        }
+      }
+    }
+
+    fetchProduct();
+  }, [action, form]);
 
   return (
     <FormProvider {...form}>

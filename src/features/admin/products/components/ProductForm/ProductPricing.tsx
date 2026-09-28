@@ -3,7 +3,7 @@ import { useFormContext } from "react-hook-form";
 import { ProductFormValues } from "../../schema/product.schema";
 
 const ProductPricing = () => {
-  const { register } = useFormContext<ProductFormValues>();
+  const { register, formState: { errors} } = useFormContext<ProductFormValues>();
 
   return (
     <>
@@ -16,6 +16,7 @@ const ProductPricing = () => {
           type="number"
           label="Price (₦) *"
           placeholder="12000"
+          error={errors.price?.message}
           {...register("price", {
             valueAsNumber: true,
           })}
@@ -25,6 +26,7 @@ const ProductPricing = () => {
           type="number"
           label="Discounted Price (₦)"
           placeholder="9000"
+          error={errors.discountedPrice?.message}
           {...register("discountedPrice", {
             valueAsNumber: true,
           })}
@@ -34,6 +36,7 @@ const ProductPricing = () => {
           type="number"
           label="Stock"
           placeholder="5"
+          error={errors.stock?.message}
           {...register("stock", {
             valueAsNumber: true,
           })}

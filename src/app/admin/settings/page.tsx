@@ -1,10 +1,12 @@
 import { Button } from "@/components";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import Input from "@/components/ui/Input";
+import Textarea from "@/components/ui/TextArea";
 import AdminPageContent from "@/features/admin/components/AdminPageContent";
 import AdminPageHeader from "@/features/admin/components/AdminPageHeader";
 import SettingSubsection from "@/features/admin/components/SettingSubsection";
 import formatCurrency from "@/lib/formatCurrency";
-import { Plus } from "lucide-react";
+import { Edit, Plus, X } from "lucide-react";
 
 export default function Page() {
   return (
@@ -123,6 +125,84 @@ export default function Page() {
             />
           </div>
           <Button variant="link" className="w-fit"><Plus /> Add State</Button>
+        </SettingSubsection>
+        <SettingSubsection>
+          <SettingSubsection.Heading>
+            <SettingSubsection.Title>Announcement Bar</SettingSubsection.Title>
+            <SettingSubsection.Description>The scrolling strip at the very top of the storefront.</SettingSubsection.Description>
+          </SettingSubsection.Heading>
+          <div className="flex items-center gap-4 pb-4 text-xs border border-b-foreground/10">
+            <Input
+              type="text"
+              value="Free shipping on orders over ₦50,000 🚢"
+              placeholder="Enter Delivery Fee"
+              className="flex-1 text-xs"
+            />
+            <button><Edit size={14} /></button>
+            <button><X size={14} /></button>
+          </div>
+          <div className="flex flex-col gap-4 pb-4 text-xs border border-b-foreground/10">
+            <p className="uppercase">Message</p>
+            <Input
+              type="text"
+              placeholder="Enter Message"
+              className="flex-1 text-xs"
+            />
+          </div>
+          <Button variant="link" className="font-bold w-fit"><Plus /> Add Message</Button>
+        </SettingSubsection>
+        <SettingSubsection>
+          <SettingSubsection.Heading>
+            <SettingSubsection.Title>Policies</SettingSubsection.Title>
+            <SettingSubsection.Description>Powers the Returns, Shipping, and FAQ content on the Contact page.</SettingSubsection.Description>
+          </SettingSubsection.Heading>
+          <div className="flex flex-col gap-4 pb-4 text-xs border border-b-foreground/10">
+            <p className="uppercase">Return Policy</p>
+            <Textarea
+              placeholder="Enter Your Return Policy."
+              className="flex-1 text-xs min-h-20"
+            />
+          </div>
+          <div className="flex flex-col gap-4 pb-4 text-xs border border-b-foreground/10">
+            <p className="uppercase">Shipping Info</p>
+            <Textarea
+              placeholder="Enter Your Shipping Info."
+              className="flex-1 text-xs min-h-20"
+            />
+          </div>
+        </SettingSubsection>
+        <SettingSubsection>
+          <SettingSubsection.Heading>
+            <SettingSubsection.Title>Admin Users</SettingSubsection.Title>
+            <SettingSubsection.Description>People with access to this dashboard.</SettingSubsection.Description>
+          </SettingSubsection.Heading>
+          <div className="flex items-center gap-2 py-2 min-w-fit">
+            <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+              <Avatar>
+                <AvatarImage src="/avatar" alt="Jane Matthews" />
+                <AvatarFallback className="bg-accent text-background">AA</AvatarFallback>
+              </Avatar>
+            </div>
+            <div className="grid flex-1 text-left text-sm leading-tight tracking-widest">
+              <span className="truncate font-medium text-base font-serif">Anthonia Akachukwu</span>
+              <span className="truncate text-[10px] font-light">anthoniaakachukwu05@gmail.com</span>
+            </div>
+            <span className="bg-accent/10 text-accent px-2 py-1 rounded-full text-xs uppercase">Owner</span>
+          </div>
+          <div className="flex items-center gap-2 py-2 min-w-fit">
+            <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
+              <Avatar>
+                <AvatarImage src="/avatar" alt="Jane Matthews" />
+                <AvatarFallback className="bg-accent text-background">JN</AvatarFallback>
+              </Avatar>
+            </div>
+            <div className="grid flex-1 text-left text-sm leading-tight tracking-widest">
+              <span className="truncate font-medium text-base font-serif">Jane Matthews</span>
+              <span className="truncate text-[10px] font-light">janematthews@gmail.com</span>
+            </div>
+            <span className="bg-accent/10 text-accent px-2 py-1 rounded-full text-xs uppercase">Admin</span>
+          </div>
+          <Button variant="link" className="font-bold w-fit"><Plus />Invite Admin</Button>
         </SettingSubsection>
       </AdminPageContent>
     </>
