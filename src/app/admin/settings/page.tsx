@@ -161,6 +161,7 @@ export default function Page() {
             <Textarea
               placeholder="Enter Your Return Policy."
               className="flex-1 text-xs min-h-20"
+              value="7-day return on unworn items in original condition. Contact us via WhatsApp or email to initiate."
             />
           </div>
           <div className="flex flex-col gap-4 pb-4 text-xs border border-b-foreground/10">
@@ -168,6 +169,7 @@ export default function Page() {
             <Textarea
               placeholder="Enter Your Shipping Info."
               className="flex-1 text-xs min-h-20"
+              value="Lagos: 24–48 hours. Nationwide: 2–5 business days. International: 7–14 days."
             />
           </div>
         </SettingSubsection>
@@ -187,7 +189,7 @@ export default function Page() {
               <span className="truncate font-medium text-base font-serif">Anthonia Akachukwu</span>
               <span className="truncate text-[10px] font-light">anthoniaakachukwu05@gmail.com</span>
             </div>
-            <span className="bg-accent/10 text-accent px-2 py-1 rounded-full text-xs uppercase">Owner</span>
+            <span className="bg-accent/10 text-accent px-2 py-1 rounded-full text-[10px] uppercase">Owner</span>
           </div>
           <div className="flex items-center gap-2 py-2 min-w-fit">
             <div className="flex aspect-square size-8 items-center justify-center rounded-lg text-sidebar-primary-foreground">
@@ -200,7 +202,7 @@ export default function Page() {
               <span className="truncate font-medium text-base font-serif">Jane Matthews</span>
               <span className="truncate text-[10px] font-light">janematthews@gmail.com</span>
             </div>
-            <span className="bg-accent/10 text-accent px-2 py-1 rounded-full text-xs uppercase">Admin</span>
+            <span className="bg-accent/10 text-accent px-2 py-1 rounded-full text-[10px] uppercase">Admin</span>
           </div>
           <Button variant="link" className="font-bold w-fit"><Plus />Invite Admin</Button>
         </SettingSubsection>

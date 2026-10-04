@@ -1,54 +1,21 @@
 "use client"
 
-import Checkbox from "@/components/ui/Checkbox";
 import Select from "@/components/ui/SelectInput";
 import AdminPageContent from "@/features/admin/components/AdminPageContent";
 import AdminPageHeader from "@/features/admin/components/AdminPageHeader";
-import AdminTable from "@/features/admin/components/AdminTable";
-import StatCard from "@/features/admin/dashboard/components/StatCard";
+import StatCard from "@/features/admin/components/StatCard";
 import SummaryTable from "@/features/admin/components/SummaryTable";
 import formatCurrency from "@/lib/formatCurrency";
-import { ArrowRight, ArrowUp, ClipboardCheck, MoreHorizontal, PackageCheck, ShoppingBag, Trophy } from "lucide-react";
-import { TableCell, TableRow } from "@/components/ui/table";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
-import ProductFormModal from "@/features/admin/products/components/ProductForm/ProductFormModal";
-import { useEffect, useState } from "react";
-import { getProducts } from "@/features/product/api/product.services";
-import { mapProductFromDatabase } from "@/features/product/api/product.mappers";
-import { Product } from "@/features/product/types/product.types";
-import ErrorState from "@/components/ui/ErrorState";
-import Loader from "@/components/ui/Loader";
-
-const rowHeaders = [<Checkbox label="" key={1} />, "product", "category", "price", "stock", "badge", "status", ""]
+import { ArrowUp, ClipboardCheck, PackageCheck, ShoppingBag, Trophy } from "lucide-react";
+import { ChangeEvent, useState } from "react";
 
 export default function Page() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string>("");
+  const [interval, setInterval] = useState<number>(30)
+  const handleClick = (value: number) => {
+    setInterval(value)
+  }
 
-  useEffect(() => {
-    async function loadProducts() {
-      try {
-        setLoading(true);
-
-        const { data, error } = await getProducts();
-        const mappedProducts = data.map(mapProductFromDatabase);
-
-        if (error) {
-          throw new Error(error)
-        }
-
-        setProducts(mappedProducts);
-      } catch (error) {
-        console.error("Failed to load products:", error);
-        setError(error instanceof Error ? error.message : String(error));
-      } finally {
-        setLoading(false);
-      }
-    }
-
-    loadProducts()
-  }, [])
+  console.log(interval)
 
   return (
     <>
@@ -61,11 +28,18 @@ export default function Page() {
           </AdminPageHeader.Description>
         </AdminPageHeader.Content>
         <AdminPageHeader.Actions>
-          <Select>
-            <option value="30 days">Last 30 days</option>
-            <option value="60 days">Last 60 days</option>
-            <option value="90 days">Last 90 days</option>
-            <option value="1 year">This year</option>
+          <Select
+            onChange={(e: ChangeEvent<HTMLSelectElement>) => {
+              const value = Number(e.target.value);
+              if (!value) return;
+              
+              handleClick(value);
+            }}
+          >
+            <option value={30}>Last 30 days</option>
+            <option value={60}>Last 60 days</option>
+            <option value={90}>Last 90 days</option>
+            <option value={365}>This year</option>
           </Select>
         </AdminPageHeader.Actions>
       </AdminPageHeader>
@@ -146,18 +120,18 @@ export default function Page() {
         </div>
       </AdminPageContent>
       <AdminPageContent>
-          <SummaryTable className="flex-4">
-            <SummaryTable.Header>
-              <SummaryTable.Title>Orders by state</SummaryTable.Title>
-            </SummaryTable.Header>
-            <SummaryTable.Content>
-              <SummaryTable.Empty>
-                <Trophy />
-                <p className="font-bold">No top selling state yet</p>
-                <p className="normal-case">Start selling to get more analysis!</p>
-              </SummaryTable.Empty>
-            </SummaryTable.Content>
-          </SummaryTable>
+        <SummaryTable className="flex-4">
+          <SummaryTable.Header>
+            <SummaryTable.Title>Orders by state</SummaryTable.Title>
+          </SummaryTable.Header>
+          <SummaryTable.Content>
+            <SummaryTable.Empty>
+              <Trophy />
+              <p className="font-bold">No top selling state yet</p>
+              <p className="normal-case">Start selling to get more analysis!</p>
+            </SummaryTable.Empty>
+          </SummaryTable.Content>
+        </SummaryTable>
       </AdminPageContent>
     </>
   );

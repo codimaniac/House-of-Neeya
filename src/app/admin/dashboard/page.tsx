@@ -5,11 +5,10 @@ import AdminPageContent from "@/features/admin/components/AdminPageContent";
 import AdminPageHeader from "@/features/admin/components/AdminPageHeader";
 import ProductForm from "@/features/admin/products/components/ProductForm/ProductForm";
 import ProductFormModal from "@/features/admin/products/components/ProductForm/ProductFormModal";
-import StatCard from "@/features/admin/dashboard/components/StatCard";
 import SummaryTable from "@/features/admin/components/SummaryTable";
-import formatCurrency from "@/lib/formatCurrency";
-import { ArrowRight, ArrowUp, ClipboardCheck, PackageCheck, ShoppingBag, Trophy } from "lucide-react";
+import { ArrowRight, ClipboardCheck, PackageCheck, ShoppingBag, Trophy } from "lucide-react";
 import { useRouter } from "next/navigation";
+import StatCards from "@/features/admin/components/StatCards";
 
 type MonthToStringMap = {
   [key: number]: string;
@@ -32,7 +31,7 @@ const monthtoStringMap: MonthToStringMap = {
 
 export default function Page() {
   const date = new Date()
-  const month = monthtoStringMap[date.getMonth()]
+  const month = monthtoStringMap[date.getMonth() + 1]
   const day = date.getDate()
   const year = date.getFullYear()
   const hour = date.getHours()
@@ -63,7 +62,7 @@ export default function Page() {
       <AdminPageHeader>
         <AdminPageHeader.Content>
           <AdminPageHeader.Meta>Today • {month} {day}, {year}</AdminPageHeader.Meta>
-          <AdminPageHeader.Title>Good {timeOfDay}, Jane</AdminPageHeader.Title>
+          <AdminPageHeader.Title>Good {timeOfDay}, James</AdminPageHeader.Title>
           <AdminPageHeader.Description>
             Here&apos;s what&apos;s happening at House of Neeya right now.
           </AdminPageHeader.Description>
@@ -77,28 +76,7 @@ export default function Page() {
         <ProductFormModal>
           <ProductForm />
         </ProductFormModal>
-        <div className="grid auto-rows-min gap-4 md:grid-cols-4">
-          <StatCard>
-            <StatCard.Label>Revenue Today</StatCard.Label>
-            <StatCard.Value>{formatCurrency(142200)}</StatCard.Value>
-            <StatCard.Progress><ArrowUp size={12} /> 8.2% vs Yesterday</StatCard.Progress>
-          </StatCard>
-          <StatCard>
-            <StatCard.Label>Orders Today</StatCard.Label>
-            <StatCard.Value>9</StatCard.Value>
-            <StatCard.Progress><ArrowUp size={12} /> 2 vs Yesterday</StatCard.Progress>
-          </StatCard>
-          <StatCard>
-            <StatCard.Label>Needs Attention</StatCard.Label>
-            <StatCard.Value>7</StatCard.Value>
-            <StatCard.Progress className="text-accent">3 pending • 2 unfulfilled</StatCard.Progress>
-          </StatCard>
-          <StatCard>
-            <StatCard.Label>Low Stock Items</StatCard.Label>
-            <StatCard.Value>4</StatCard.Value>
-            <StatCard.Progress className="text-accent">Restock recommended</StatCard.Progress>
-          </StatCard>
-        </div>
+        <StatCards />
         <div className="flex flex-col md:flex-row gap-4 w-full">
           <SummaryTable className="flex-6">
             <SummaryTable.Header>

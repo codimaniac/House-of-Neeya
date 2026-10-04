@@ -1,13 +1,14 @@
 import type { Metadata } from "next";
 import { Cormorant_Garamond, DM_Sans, Noto_Sans, Playfair_Display } from "next/font/google";
 import "./globals.css";
-import Toast from "@/components/ui/Toast";
+// import Toast from "@/components/ui/Toast";
 import { cn } from "@/lib/utils";
 import { TooltipProvider } from "@/components/ui/tooltip"
+import Providers from "./providers";
 
-const playfairDisplayHeading = Playfair_Display({subsets:['latin'],variable:'--font-heading'});
+const playfairDisplayHeading = Playfair_Display({ subsets: ['latin'], variable: '--font-heading' });
 
-const notoSans = Noto_Sans({subsets:['latin'],variable:'--font-sans'});
+const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans' });
 
 const cormorantGaramond = Cormorant_Garamond({
   variable: "--font-cormorant-garamond",
@@ -38,8 +39,10 @@ export default function RootLayout({
     >
       <body className="relative min-h-full flex flex-col overflow-x-hidden">
         <TooltipProvider>
-          {/* <Toast /> */}
-          {children}
+          <Providers>
+            {/* <Toast /> */}
+            {children}
+          </Providers>
         </TooltipProvider>
       </body>
     </html>
